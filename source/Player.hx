@@ -1,5 +1,7 @@
 package ;
 
+import flixel.group.FlxGroup;
+import flixel.group.FlxTypedGroup;
 import flixel.util.FlxMath;
 import flixel.util.FlxPoint;
 import flixel.FlxG;
@@ -10,12 +12,18 @@ import flixel.FlxSprite;
  **/
 class Player extends FlxSprite {
 
+    private var shots:FlxTypedGroup<Shot>;
+
     /**
      * コンストラクタ
      **/
     public function new() {
         super(FlxG.width/2, FlxG.height - 64);
         makeGraphic(8, 8, FlxColor.BLUE);
+    }
+
+    public function setShots(shots:FlxTypedGroup<Shot>) {
+        this.shots = shots;
     }
 
     /**
@@ -43,6 +51,15 @@ class Player extends FlxSprite {
             var speed:Float = 200;
             velocity.x = speed * Math.cos(rad);
             velocity.y = speed * Math.sin(rad);
+        }
+
+        if(FlxG.keys.pressed.SPACE) {
+            var shot: Shot = shots.recycle();
+            if(shot != null) {
+                shot.x = x;
+                shot.y = y;
+                shot.velocity.set(0, -100);
+            }
         }
 
         super.update();

@@ -1,5 +1,8 @@
 package;
 
+import flixel.group.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxGroup;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -14,6 +17,8 @@ class PlayState extends FlxState {
 
     // プレイヤー
     private var _player:Player;
+    // ショットグループ
+    private var _shots:FlxTypedGroup<Shot>;
     // テキスト
     private var _text:FlxText;
 
@@ -30,6 +35,16 @@ class PlayState extends FlxState {
         // メッセージテキスト生成
         _text = new FlxText(0, 0);
         add(_text);
+
+        // ショット生成
+        _shots = new FlxTypedGroup<Shot>(32);
+        for(i in 0...32) {
+            var s = new Shot();
+            s.kill();
+            _shots.add(s);
+        }
+        add(_shots);
+        _player.setShots(_shots);
     }
 
     /**
@@ -43,7 +58,7 @@ class PlayState extends FlxState {
      * 更新
      **/
     override public function update():Void {
-        _text.text = "shot:";
+        _text.text = "shot:" + _shots.countLiving();
         super.update();
     }
 }
