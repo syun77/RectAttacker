@@ -14,6 +14,8 @@ class PlayState extends FlxState {
 
     // プレイヤー
     private var _player:Player;
+    // テキスト
+    private var _text:FlxText;
 
     /**
      * 生成
@@ -21,8 +23,13 @@ class PlayState extends FlxState {
     override public function create():Void {
         super.create();
 
+        // プレイヤー生成
         _player = new Player();
         add(_player);
+
+        // メッセージテキスト生成
+        _text = new FlxText(0, 0);
+        add(_text);
     }
 
     /**
@@ -36,6 +43,7 @@ class PlayState extends FlxState {
      * 更新
      **/
     override public function update():Void {
+        _text.text = "shot:";
         super.update();
     }
 }
