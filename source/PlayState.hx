@@ -39,9 +39,7 @@ class PlayState extends FlxState {
         // ショット生成
         _shots = new FlxTypedGroup<Shot>(32);
         for(i in 0...32) {
-            var s = new Shot();
-            s.kill();
-            _shots.add(s);
+            _shots.add(new Shot());
         }
         add(_shots);
         _player.setShots(_shots);
@@ -60,5 +58,9 @@ class PlayState extends FlxState {
     override public function update():Void {
         _text.text = "shot:" + _shots.countLiving();
         super.update();
+
+        if(FlxG.keys.justPressed.ESCAPE) {
+            throw "Terminate.";
+        }
     }
 }

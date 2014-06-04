@@ -12,6 +12,11 @@ import flixel.FlxSprite;
  **/
 class Player extends FlxSprite {
 
+    // 移動速度
+    static inline private var SPEED = 150;
+    // ショットの速度
+    static inline private var SPEED_SHOT = 500;
+
     private var shots:FlxTypedGroup<Shot>;
 
     /**
@@ -19,7 +24,8 @@ class Player extends FlxSprite {
      **/
     public function new() {
         super(FlxG.width/2, FlxG.height - 64);
-        makeGraphic(8, 8, FlxColor.BLUE);
+        makeGraphic(8, 8, FlxColor.AQUAMARINE);
+        centerOffsets();
     }
 
     public function setShots(shots:FlxTypedGroup<Shot>) {
@@ -48,7 +54,7 @@ class Player extends FlxSprite {
 
         if(p.x != 0 || p.y != 0) {
             var rad:Float = Math.atan2(p.y, p.x);
-            var speed:Float = 200;
+            var speed:Float = SPEED;
             velocity.x = speed * Math.cos(rad);
             velocity.y = speed * Math.sin(rad);
         }
@@ -58,7 +64,7 @@ class Player extends FlxSprite {
             if(shot != null) {
                 shot.x = x;
                 shot.y = y;
-                shot.velocity.set(0, -100);
+                shot.velocity.y = -SPEED_SHOT;
             }
         }
 

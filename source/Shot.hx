@@ -14,7 +14,11 @@ class Shot extends FlxSprite {
      **/
     public function new() {
         super(-100, -100);
-        makeGraphic(4, 4, FlxColor.BLUE);
+        makeGraphic(4, 4, FlxColor.CYAN);
+        centerOffsets();
+
+        // 初期状態は無効
+        kill();
     }
 
     /**
