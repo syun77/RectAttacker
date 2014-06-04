@@ -15,7 +15,7 @@ class Shot extends FlxSprite {
     public function new() {
         super(-100, -100);
         makeGraphic(4, 4, FlxColor.CYAN);
-        centerOffsets();
+        offset.set(2, 2);
 
         // 初期状態は無効
         kill();

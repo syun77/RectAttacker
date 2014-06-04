@@ -25,7 +25,7 @@ class Player extends FlxSprite {
     public function new() {
         super(FlxG.width/2, FlxG.height - 64);
         makeGraphic(8, 8, FlxColor.AQUAMARINE);
-        centerOffsets();
+        offset.set(4, 4);
     }
 
     public function setShots(shots:FlxTypedGroup<Shot>) {

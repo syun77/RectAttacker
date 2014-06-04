@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="flixel" type="Haxe">
+  <library name="flixel">
     <CLASSES>
       <root url="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel" />
     </CLASSES>
