@@ -21,8 +21,16 @@ class PlayState extends FlxState {
     private var _shots:FlxTypedGroup<Shot>;
     // 敵グループ
     private var _enemys:FlxTypedGroup<Enemy>;
+    // 敵弾グループ
+    private var _bullets:FlxTypedGroup<Bullet>;
     // テキスト
     private var _text:FlxText;
+    // テキスト
+    private var _text2:FlxText;
+    // テキスト
+    private var _text3:FlxText;
+
+    private var _timer:Int;
 
     /**
      * 生成
@@ -37,6 +45,10 @@ class PlayState extends FlxState {
         // メッセージテキスト生成
         _text = new FlxText(0, 0);
         add(_text);
+        _text2 = new FlxText(0, 16);
+        add(_text2);
+        _text3 = new FlxText(0, 32);
+        add(_text3);
 
         // ショット生成
         _shots = new FlxTypedGroup<Shot>(32);
@@ -53,6 +65,18 @@ class PlayState extends FlxState {
         }
         add(_enemys);
         Enemy.target = _player;
+
+        // 敵弾グループ
+        _bullets = new FlxTypedGroup<Bullet>(256);
+        for(i in 0..._bullets.maxSize) {
+            _bullets.add(new Bullet());
+        }
+        add(_bullets);
+        Enemy.bullets = _bullets;
+
+        // 各種変数初期化
+        _timer = 0;
+
     }
 
     /**
@@ -66,7 +90,17 @@ class PlayState extends FlxState {
      * 更新
      **/
     override public function update():Void {
+
+        _timer++;
+        if(_timer%60 == 0 && _enemys.countLiving() == 0) {
+            var e:Enemy = _enemys.recycle();
+            e.x = FlxG.width/2;
+            e.y = 64;
+        }
+
         _text.text = "shot:" + _shots.countLiving();
+        _text2.text = "enemy:" + _enemys.countLiving();
+        _text3.text = "bullet:" + _bullets.countLiving();
         super.update();
 
         if(FlxG.keys.justPressed.ESCAPE) {
