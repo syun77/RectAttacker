@@ -59,10 +59,10 @@ class Enemy extends FlxSprite {
 
     /**
      * 狙い撃ち弾を撃つ
-     * @param ofs   狙い撃ちからずらす角度
+     * @param ofs   狙い撃ち角度からずらす角度
      * @param speed 速さ
      **/
     public function bulletAim(ofs:Float, speed:Float) {
-
+        var aim =
     }
 }
