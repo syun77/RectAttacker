@@ -17,7 +17,7 @@ class Player extends FlxSprite {
     // ショットの速度
     static inline private var SPEED_SHOT = 500;
 
-    private var shots:FlxTypedGroup<Shot>;
+    public var shots:FlxTypedGroup<Shot>;
 
     /**
      * コンストラクタ

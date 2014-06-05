@@ -19,6 +19,8 @@ class PlayState extends FlxState {
     private var _player:Player;
     // ショットグループ
     private var _shots:FlxTypedGroup<Shot>;
+    // 敵グループ
+    private var _enemys:FlxTypedGroup<Enemy>;
     // テキスト
     private var _text:FlxText;
 
@@ -38,11 +40,19 @@ class PlayState extends FlxState {
 
         // ショット生成
         _shots = new FlxTypedGroup<Shot>(32);
-        for(i in 0...32) {
+        for(i in 0..._shots.maxSize) {
             _shots.add(new Shot());
         }
         add(_shots);
         _player.setShots(_shots);
+
+        // 敵の生成
+        _enemys = new FlxTypedGroup<Enemy>(32);
+        for(i in 0..._enemys.maxSize) {
+            _enemys.add(new Enemy());
+        }
+        add(_enemys);
+        Enemy.target = _player;
     }
 
     /**
