@@ -72,7 +72,7 @@ class PlayState extends FlxState {
             _bullets.add(new Bullet());
         }
         add(_bullets);
-        Enemy.bullets = _bullets;
+        Enemy.s_bullets = _bullets;
 
         // 各種変数初期化
         _timer = 0;

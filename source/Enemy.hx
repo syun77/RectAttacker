@@ -1,4 +1,5 @@
 package ;
+import flixel.util.FlxAngle;
 import flixel.FlxG;
 import flixel.group.FlxTypedGroup;
 import flixel.util.FlxColor;
@@ -9,7 +10,7 @@ import flixel.FlxSprite;
  **/
 class Enemy extends FlxSprite {
     static public var target:Player;
-    static public var bullets:FlxTypedGroup<Bullet>;
+    static public var s_bullets:FlxTypedGroup<Bullet>;
 
     private var _timer:Int = 0;
 
@@ -34,11 +35,34 @@ class Enemy extends FlxSprite {
         }
 
         _timer++;
-        if(_timer%60 == 0) {
-            var b:Bullet = bullets.recycle();
+        if(_timer%6 == 0) {
+            bullet(_timer*2, 100);
+        }
+    }
+
+    /**
+     * 弾を撃つ
+     * @param dir 方向
+     * @param speed 速さ
+     **/
+    public function bullet(dir:Float, speed:Float):Void {
+        var rad:Float = FlxAngle.TO_RAD * dir;
+        var dx:Float = speed * Math.cos(rad);
+        var dy:Float = speed * Math.sin(rad);
+        var b:Bullet = s_bullets.recycle();
+        if(b != null) {
             b.x = x;
             b.y = y;
-            b.velocity.set(0, 100);
+            b.velocity.set(dx, dy);
         }
+    }
+
+    /**
+     * 狙い撃ち弾を撃つ
+     * @param ofs   狙い撃ちからずらす角度
+     * @param speed 速さ
+     **/
+    public function bulletAim(ofs:Float, speed:Float) {
+
     }
 }
