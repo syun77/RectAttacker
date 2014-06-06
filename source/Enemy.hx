@@ -63,6 +63,7 @@ class Enemy extends FlxSprite {
      * @param speed 速さ
      **/
     public function bulletAim(ofs:Float, speed:Float) {
-        var aim =
+        var aim = FlxAngle.angleBetween(this, target, true);
+        bullet(aim+ofs, speed);
     }
 }
