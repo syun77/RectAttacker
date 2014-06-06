@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxObject;
 import flixel.group.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup;
@@ -106,5 +107,17 @@ class PlayState extends FlxState {
         if(FlxG.keys.justPressed.ESCAPE) {
             throw "Terminate.";
         }
+
+        // 当たり判定
+        FlxG.collide(_player, _bullets, _vsPlayerBullet);
+        FlxG.collide(_shots, _enemys, _vsShotEnemy);
+    }
+
+    private function _vsPlayerBullet(player:Player, bullet:Bullet):Void {
+        bullet.kill();
+    }
+
+    private function _vsShotEnemy(shot:Shot, enemy:Enemy):Void {
+        shot.kill();
     }
 }
