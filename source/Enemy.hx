@@ -17,7 +17,6 @@ class Enemy extends FlxSprite {
     public function new() {
         super(-100, -100);
         makeGraphic(8, 8, FlxColor.GREEN);
-        offset.set(4, 4);
         immovable = true; // 反動で動かないようにする
 
         // 非表示にする
@@ -30,7 +29,7 @@ class Enemy extends FlxSprite {
     override function update():Void {
         super.update();
 
-        if(x < 0 || y < 0 || x > FlxG.width || y > FlxG.height) {
+        if(isOnScreen()==false) {
             // 画面外で消える
             kill();
         }
@@ -52,8 +51,8 @@ class Enemy extends FlxSprite {
         var dy:Float = speed * Math.sin(rad);
         var b:Bullet = s_bullets.recycle();
         if(b != null) {
-            b.x = x;
-            b.y = y;
+            b.x = x + width/2 - b.width/2;
+            b.y = y + width/2 - b.width/2;
             b.velocity.set(dx, dy);
         }
     }

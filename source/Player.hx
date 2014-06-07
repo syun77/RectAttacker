@@ -25,8 +25,7 @@ class Player extends FlxSprite {
     public function new() {
         super(FlxG.width/2, FlxG.height - 64);
         makeGraphic(8, 8, FlxColor.AQUAMARINE);
-        offset.set(4, 4);
-        immovable = true;
+        //immovable = true;
     }
 
     public function setShots(shots:FlxTypedGroup<Shot>) {
@@ -38,6 +37,7 @@ class Player extends FlxSprite {
      **/
     override public function update():Void {
 
+        // 移動処理
         velocity.set(0, 0);
         var p:FlxPoint = FlxPoint.get(0, 0);
         if(FlxG.keys.pressed.LEFT) {
@@ -58,15 +58,16 @@ class Player extends FlxSprite {
             var speed:Float = SPEED;
             velocity.x = speed * Math.cos(rad);
             velocity.y = speed * Math.sin(rad);
+
         }
 
+        // ショット処理
         if(FlxG.keys.pressed.SPACE) {
-            //var shot: Shot = shots.recycle();
             var shot: Shot = shots.getFirstDead();
             if(shot != null) {
                 shot.revive();
-                shot.x = x;
-                shot.y = y;
+                shot.x = x + 4 - 2;
+                shot.y = y + 4 - 2;
                 shot.velocity.y = -SPEED_SHOT;
             }
         }

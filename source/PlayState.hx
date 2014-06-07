@@ -1,5 +1,8 @@
 package;
 
+import flixel.system.ui.FlxSystemButton;
+import flixel.util.FlxColor;
+import flixel.system.debug.FlxDebugger;
 import flixel.FlxObject;
 import flixel.group.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
@@ -24,14 +27,16 @@ class PlayState extends FlxState {
     private var _enemys:FlxTypedGroup<Enemy>;
     // 敵弾グループ
     private var _bullets:FlxTypedGroup<Bullet>;
-    // テキスト
-    private var _text:FlxText;
-    // テキスト
-    private var _text2:FlxText;
-    // テキスト
-    private var _text3:FlxText;
+    // 大人カベ
+    private var _walls:FlxGroup;
 
     private var _timer:Int;
+
+    private var _nShot:Int = 0;
+    private var _nEnemy:Int = 0;
+    private var _nBullet:Int = 0;
+    private var _dbgButton:FlxSystemButton;
+
 
     /**
      * 生成
@@ -43,13 +48,6 @@ class PlayState extends FlxState {
         _player = new Player();
         add(_player);
 
-        // メッセージテキスト生成
-        _text = new FlxText(0, 0);
-        add(_text);
-        _text2 = new FlxText(0, 16);
-        add(_text2);
-        _text3 = new FlxText(0, 32);
-        add(_text3);
 
         // ショット生成
         _shots = new FlxTypedGroup<Shot>(8);
@@ -75,9 +73,31 @@ class PlayState extends FlxState {
         add(_bullets);
         Enemy.s_bullets = _bullets;
 
+        // 大人カベグループ
+        _walls = new FlxGroup();
+        var xList = [-32, -32, FlxG.width, 0];
+        var yList = [-32, -32, 0, FlxG.height];
+        var wList = [32, FlxG.width+32, 32, FlxG.width];
+        var hList = [FlxG.height+32, 32, FlxG.height, 32];
+        for(i in 0...4) {
+            var w:FlxSprite = new FlxSprite(xList[i], yList[i]);
+            w.makeGraphic(wList[i], hList[i], FlxColor.GREEN);
+            w.immovable = true;
+            _walls.add(w);
+        }
+        add(_walls);
+
         // 各種変数初期化
         _timer = 0;
 
+        // デバッグ機能
+        FlxG.debugger.toggleKeys = ["ALT"];
+        FlxG.watch.add(this, "_nShot");
+        FlxG.watch.add(this, "_nEnemy");
+        FlxG.watch.add(this, "_nBullet");
+        FlxG.watch.add(_player, "x");
+        FlxG.watch.add(_player, "y");
+        _dbgButton = FlxG.debugger.addButton(ButtonAlignment.MIDDLE, _player.getFlxFrameBitmapData(), FlxG.resetState);
     }
 
     /**
@@ -85,6 +105,7 @@ class PlayState extends FlxState {
      **/
     override public function destroy():Void {
         super.destroy();
+        FlxG.debugger.removeButton(_dbgButton);
     }
 
     /**
@@ -99,9 +120,9 @@ class PlayState extends FlxState {
             e.y = 64;
         }
 
-        _text.text = "shot:" + _shots.countLiving();
-        _text2.text = "enemy:" + _enemys.countLiving();
-        _text3.text = "bullet:" + _bullets.countLiving();
+        _nShot = _shots.countLiving();
+        _nEnemy = _enemys.countLiving();
+        _nBullet = _bullets.countLiving();
         super.update();
 
         if(FlxG.keys.justPressed.ESCAPE) {
@@ -111,6 +132,7 @@ class PlayState extends FlxState {
         // 当たり判定
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);
+        FlxG.collide(_player, _walls);
     }
 
     private function _vsPlayerBullet(player:Player, bullet:Bullet):Void {
