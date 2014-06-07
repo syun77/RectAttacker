@@ -18,6 +18,7 @@ class Enemy extends FlxSprite {
         super(-100, -100);
         makeGraphic(8, 8, FlxColor.GREEN);
         offset.set(4, 4);
+        immovable = true; // 反動で動かないようにする
 
         // 非表示にする
         kill();

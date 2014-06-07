@@ -52,7 +52,7 @@ class PlayState extends FlxState {
         add(_text3);
 
         // ショット生成
-        _shots = new FlxTypedGroup<Shot>(32);
+        _shots = new FlxTypedGroup<Shot>(8);
         for(i in 0..._shots.maxSize) {
             _shots.add(new Shot());
         }
