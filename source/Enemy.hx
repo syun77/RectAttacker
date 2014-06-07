@@ -59,6 +59,8 @@ class Enemy extends FlxSprite {
     override function update():Void {
         super.update();
 
+        velocity.x *= 0.95;
+        velocity.y *= 0.95;
         if(isOnScreen()==false) {
             // 画面外で消える
             kill();
@@ -79,8 +81,9 @@ class Enemy extends FlxSprite {
         var rad:Float = FlxAngle.TO_RAD * dir;
         var dx:Float = speed * Math.cos(rad);
         var dy:Float = speed * Math.sin(rad);
-        var b:Bullet = s_bullets.recycle();
+        var b:Bullet = s_bullets.getFirstDead();
         if(b != null) {
+            b.revive();
             b.x = x + width/2 - b.width/2;
             b.y = y + width/2 - b.width/2;
             b.velocity.set(dx, dy);

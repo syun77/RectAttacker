@@ -25,6 +25,8 @@ class PlayState extends FlxState {
     private var _shots:FlxTypedGroup<Shot>;
     // 敵グループ
     private var _enemys:FlxTypedGroup<Enemy>;
+    // ボス
+    private var _boss:Boss;
     // 敵弾グループ
     private var _bullets:FlxTypedGroup<Bullet>;
     // 大人カベ
@@ -64,6 +66,11 @@ class PlayState extends FlxState {
         add(_enemys);
         Enemy.target = _player;
 
+        // ボスの生成
+        _boss = new Boss();
+        Boss.s_enemys = _enemys;
+        add(_boss);
+
         // 敵弾グループ
         _bullets = new FlxTypedGroup<Bullet>(256);
         for(i in 0..._bullets.maxSize) {
@@ -99,6 +106,9 @@ class PlayState extends FlxState {
         FlxG.watch.add(this, "_nBullet");
         FlxG.watch.add(_player, "x");
         FlxG.watch.add(_player, "y");
+        FlxG.watch.add(_boss, "exists");
+        FlxG.watch.add(_boss, "x");
+        FlxG.watch.add(_boss, "y");
         _dbgButton = FlxG.debugger.addButton(ButtonAlignment.MIDDLE, _player.getFlxFrameBitmapData(), FlxG.resetState);
     }
 
@@ -116,11 +126,11 @@ class PlayState extends FlxState {
     override public function update():Void {
 
         _timer++;
-        if(_timer%60 == 0 && _enemys.countLiving() == 0) {
-            var e:Enemy = _enemys.recycle();
-            e.x = FlxG.width/2;
-            e.y = 64;
-            e.init(1);
+        if(_timer%60 == 0 && _boss.exists == false) {
+            _boss.revive();
+            _boss.x = FlxG.width/2;
+            _boss.y = 64;
+            _boss.init(1);
         }
 
         _nShot = _shots.countLiving();
