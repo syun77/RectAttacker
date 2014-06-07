@@ -48,7 +48,6 @@ class PlayState extends FlxState {
         _player = new Player();
         add(_player);
 
-
         // ショット生成
         _shots = new FlxTypedGroup<Shot>(8);
         for(i in 0..._shots.maxSize) {
@@ -75,13 +74,16 @@ class PlayState extends FlxState {
 
         // 大人カベグループ
         _walls = new FlxGroup();
-        var xList = [-32, -32, FlxG.width, 0];
-        var yList = [-32, -32, 0, FlxG.height];
-        var wList = [32, FlxG.width+32, 32, FlxG.width];
-        var hList = [FlxG.height+32, 32, FlxG.height, 32];
+        var w4 = FlxG.width/4;
+        var s = 4;
+        var xList = [-s+w4, -s+w4, FlxG.width-w4, w4];
+        var yList = [-s, -s, 0, FlxG.height];
+        var wList = [s, FlxG.width+s, s, FlxG.width];
+        var hList = [FlxG.height+s, s, FlxG.height, s];
         for(i in 0...4) {
             var w:FlxSprite = new FlxSprite(xList[i], yList[i]);
-            w.makeGraphic(wList[i], hList[i], FlxColor.GREEN);
+            w.makeGraphic(wList[i], hList[i], FlxColor.GRAY);
+            w.alpha = 0.5;
             w.immovable = true;
             _walls.add(w);
         }
@@ -118,6 +120,7 @@ class PlayState extends FlxState {
             var e:Enemy = _enemys.recycle();
             e.x = FlxG.width/2;
             e.y = 64;
+            e.init(1);
         }
 
         _nShot = _shots.countLiving();
@@ -140,6 +143,7 @@ class PlayState extends FlxState {
     }
 
     private function _vsShotEnemy(shot:Shot, enemy:Enemy):Void {
+        enemy.damage(1);
         shot.kill();
     }
 }
