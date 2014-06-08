@@ -1,5 +1,6 @@
 package ;
 
+import flash.display.BlendMode;
 import flixel.group.FlxGroup;
 import flixel.group.FlxTypedGroup;
 import flixel.util.FlxMath;
@@ -7,6 +8,7 @@ import flixel.util.FlxPoint;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
+
 /**
  * プレイヤークラス
  **/
@@ -14,10 +16,17 @@ class Player extends FlxSprite {
 
     // 移動速度
     static inline private var SPEED = 150;
+    static inline private var SPEED_DECAY = 0.4; // ボタンを押している時
     // ショットの速度
     static inline private var SPEED_SHOT = 500;
+    // シールドのオフセット座標
+    static inline private var SHIELD_OFS_Y = 16;
 
-    public var shots:FlxTypedGroup<Shot>;
+    // ショット
+    private var _shots:FlxTypedGroup<Shot>;
+
+    // シールド
+    private var _shield:Shield;
 
     /**
      * コンストラクタ
@@ -26,10 +35,36 @@ class Player extends FlxSprite {
         super(FlxG.width/2, FlxG.height - 64);
         makeGraphic(8, 8, FlxColor.AQUAMARINE);
         //immovable = true;
+
+        _shield = new Shield();
     }
 
+    /**
+     * ショットを設定する
+     **/
     public function setShots(shots:FlxTypedGroup<Shot>) {
-        this.shots = shots;
+        this._shots = shots;
+    }
+
+    /**
+     * シールドを取得する
+     **/
+    public function getShield():Shield {
+        return _shield;
+    }
+
+    /**
+     * ショットボタンを押しているかどうか
+     **/
+    private function _isPressdShot():Bool {
+        return FlxG.keys.anyPressed(["SPACE", "Z"]);
+    }
+
+    /**
+     * シールド
+     **/
+    private function _isPressShield():Bool {
+        return FlxG.keys.anyPressed(["SHIFT", "X"]);
     }
 
     /**
@@ -55,23 +90,48 @@ class Player extends FlxSprite {
 
         if(p.x != 0 || p.y != 0) {
             var rad:Float = Math.atan2(p.y, p.x);
-            var speed:Float = SPEED;
-            velocity.x = speed * Math.cos(rad);
-            velocity.y = speed * Math.sin(rad);
-
+            var spd:Float = SPEED;
+            if(_isPressdShot()) {
+                // 移動速度が落ちる
+                spd *= SPEED_DECAY;
+            }
+            if(_isPressShield()) {
+                // 移動速度が落ちる
+                spd *= SPEED_DECAY;
+            }
+            velocity.x = spd * Math.cos(rad);
+            velocity.y = spd * Math.sin(rad);
         }
+
+        // シールドの反動
+        velocity.x += _shield.velocity.x;
+        velocity.y += _shield.velocity.y;
 
         // ショット処理
-        if(FlxG.keys.pressed.SPACE) {
-            var shot: Shot = shots.getFirstDead();
+        if(_isPressdShot()) {
+            var shot: Shot = _shots.getFirstDead();
             if(shot != null) {
                 shot.revive();
-                shot.x = x + 4 - 2;
-                shot.y = y + 4 - 2;
+                shot.x = x + width/2 - shot.width/2;
+                shot.y = y + height/2 - shot.height/2;
                 shot.velocity.y = -SPEED_SHOT;
+                shot.velocity.x = 0;
             }
         }
+        else {
+            // ショットを撃たなければシールドが使える
+            if(_isPressShield()) {
+                // シールド表示
+                _shield.revive();
+                _shield.x = x + width/2 - _shield.width/2;
+                _shield.y = y - SHIELD_OFS_Y;
+            }
+            else {
+                // シールドを消す
+                _shield.kill();
+            }
 
+        }
         super.update();
     }
 

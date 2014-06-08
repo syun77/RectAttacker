@@ -35,11 +35,14 @@ class Enemy extends FlxSprite {
         _id = id;
         _hp = 30;
         _hpmax = _hp;
+        /*
         var size = FlxRandom.intRanged(8, 32);
         makeGraphic(size, size, FlxColor.GREEN);
         // 出現位置調整
         x -= size/2;
         y -= size/2;
+        */
+        _timer = 0;
     }
 
     /**
@@ -67,8 +70,13 @@ class Enemy extends FlxSprite {
         }
 
         _timer++;
+        /*
         if(_timer%6 == 0) {
             bullet(_timer*2, 100);
+        }
+        */
+        if(_timer%120 == 0) {
+            bulletAim(0, 100);
         }
     }
 

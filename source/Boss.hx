@@ -69,7 +69,8 @@ class Boss extends FlxSprite {
         super.update();
 
         _timer++;
-        if(_timer%120 == 0) {
+        if(_timer%127 == 0) {
+        //if(_timer == 120) {
             addEnemy(FlxRandom.floatRanged(270-45, 270+45), 100);
         }
     }

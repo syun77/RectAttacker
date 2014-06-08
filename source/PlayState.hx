@@ -49,6 +49,8 @@ class PlayState extends FlxState {
         // プレイヤー生成
         _player = new Player();
         add(_player);
+        // シールドを登録
+        add(_player.getShield());
 
         // ショット生成
         _shots = new FlxTypedGroup<Shot>(8);
@@ -107,8 +109,9 @@ class PlayState extends FlxState {
         FlxG.watch.add(_player, "x");
         FlxG.watch.add(_player, "y");
         FlxG.watch.add(_boss, "exists");
-        FlxG.watch.add(_boss, "x");
-        FlxG.watch.add(_boss, "y");
+        FlxG.watch.add(_player.getShield(), "exists");
+        FlxG.watch.add(_player.getShield(), "x");
+        FlxG.watch.add(_player.getShield(), "y");
         _dbgButton = FlxG.debugger.addButton(ButtonAlignment.MIDDLE, _player.getFlxFrameBitmapData(), FlxG.resetState);
     }
 
@@ -146,6 +149,7 @@ class PlayState extends FlxState {
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);
         FlxG.collide(_player, _walls);
+        FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
     }
 
     private function _vsPlayerBullet(player:Player, bullet:Bullet):Void {
@@ -155,5 +159,9 @@ class PlayState extends FlxState {
     private function _vsShotEnemy(shot:Shot, enemy:Enemy):Void {
         enemy.damage(1);
         shot.kill();
+    }
+
+    private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
+        bullet.kill();
     }
 }
