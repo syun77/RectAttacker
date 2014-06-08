@@ -89,16 +89,12 @@ class Player extends FlxSprite {
         }
 
         if(p.x != 0 || p.y != 0) {
-            var rad:Float = Math.atan2(p.y, p.x);
             var spd:Float = SPEED;
-            if(_isPressdShot()) {
+            if(_isPressdShot() || _isPressShield()) {
                 // 移動速度が落ちる
                 spd *= SPEED_DECAY;
             }
-            if(_isPressShield()) {
-                // 移動速度が落ちる
-                spd *= SPEED_DECAY;
-            }
+            var rad:Float = Math.atan2(p.y, p.x);
             velocity.x = spd * Math.cos(rad);
             velocity.y = spd * Math.sin(rad);
         }

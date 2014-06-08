@@ -23,6 +23,8 @@ class PlayState extends FlxState {
     private var _player:Player;
     // ショットグループ
     private var _shots:FlxTypedGroup<Shot>;
+    // ホーミング弾
+    private var _hormings:FlxTypedGroup<Horming>;
     // 敵グループ
     private var _enemys:FlxTypedGroup<Enemy>;
     // ボス
@@ -72,6 +74,15 @@ class PlayState extends FlxState {
         _boss = new Boss();
         Boss.s_enemys = _enemys;
         add(_boss);
+
+        // ホーミンググループ
+        _hormings = new FlxTypedGroup<Horming>(128);
+        for(i in 0..._hormings.maxSize) {
+            _hormings.add(new Horming());
+        }
+        add(_hormings);
+        Horming.s_enemys = _enemys;
+        Horming.s_boss = _boss;
 
         // 敵弾グループ
         _bullets = new FlxTypedGroup<Bullet>(256);
@@ -148,6 +159,7 @@ class PlayState extends FlxState {
         // 当たり判定
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);
+        FlxG.collide(_hormings, _enemys, _vsHormingEnemy);
         FlxG.collide(_player, _walls);
         FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
     }
@@ -161,7 +173,15 @@ class PlayState extends FlxState {
         shot.kill();
     }
 
+    private function _vsHormingEnemy(horming:Horming, enemy:Enemy):Void {
+        enemy.damage(1);
+        horming.kill();
+    }
+
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
         bullet.kill();
+        var h:Horming = _hormings.recycle();
+        h.x = shield.x;
+        h.y = shield.y;
     }
 }
