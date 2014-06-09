@@ -12,6 +12,14 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
 /**
+ * 状態
+ **/
+enum State {
+    Appear;  // 出現状態
+    Standby; // 待機
+}
+
+/**
  * プレイヤークラス
  **/
 class Player extends FlxSprite {
@@ -58,6 +66,12 @@ class Player extends FlxSprite {
     // ■その他
     // ショットタイマー
     private var _tShot:Int = 0;
+    // 状態
+    private var _state:State = State.Appear;
+    // タイマー
+    private var _timer:Int = 0;
+    // 無敵タイマー
+    private var _tInvisibled:Bool = true;
 
     /**
      * コンストラクタ
@@ -65,12 +79,13 @@ class Player extends FlxSprite {
     public function new() {
         super(FlxG.width/2, FlxG.height - 64);
         makeGraphic(8, 8, FlxColor.AQUAMARINE);
-        //immovable = true;
+        immovable = true;
 
         _shield = new Shield();
         _textPower = new FlxText(x, y, 64);
         _textPower.setFormat(null, 8, FlxColor.WHITE, "center");
         _textPower.text = "100%";
+        _textPower.kill();
     }
 
     /**
@@ -166,11 +181,12 @@ class Player extends FlxSprite {
         return true;
     }
 
-    /**
-     * 更新
-     **/
-    override public function update():Void {
+    private function _updateAppear():Void {
 
+        _state = State.Standby;
+    }
+
+    private function _move():Void {
         // 移動処理
         velocity.set(0, 0);
         var p:FlxPoint = FlxPoint.get(0, 0);
@@ -202,6 +218,69 @@ class Player extends FlxSprite {
         velocity.x += _shield.velocity.x;
         velocity.y += _shield.velocity.y;
 
+    }
+
+    private function _doShot():Void {
+        _tShot--;
+        if(canShot()) {
+            // 弾が撃てる
+            var shot: Shot = _shots.getFirstDead();
+            if(shot != null) {
+                shot.revive();
+                shot.x = x + width/2 - shot.width/2;
+                shot.y = y + height/2 - shot.height/2;
+                shot.y += FlxRandom.floatRanged(0, 8); // 発射位置をランダムでずらす
+                shot.velocity.y = -SPEED_SHOT;
+                shot.velocity.x = 0;
+                // スピード補正
+                var func = function(v) {
+                    switch(v) {
+                        case a if(a < 10): return 0.2;
+                        case a if(a < 40): return 0.4;
+                        case a if(a < 70): return 0.6;
+                        case a if(a < 90): return 0.8;
+                        default: return 1;
+                    }
+                }
+                shot.velocity.y *= func(getPowerShotRatio());
+            }
+            // ショットタイマーを増やす
+            var func = function(v) {
+                switch(v) {
+                    case a if(a < 10): return 16;
+                    case a if(a < 40): return 8;
+                    case a if(a < 70): return 4;
+                    case a if(a < 90): return 2;
+                    default: return 1;
+                }
+            }
+            _tShot = func(getPowerShotRatio());
+        }
+        // ショットゲージを減らす
+        subPowerShot(POWER_SHOT_DEC);
+
+        // テキスト更新
+        _setText(_textPower, getPowerShotRatio());
+
+    }
+
+    private function _doShield():Void {
+        // シールド表示
+        _shield.revive();
+        _shield.x = x + width/2 - _shield.width/2;
+        _shield.y = y - SHIELD_OFS_Y;
+        // シールドゲージを減らす
+        subPowerShield(POWER_SHIELD_DEC);
+
+        // テキスト更新
+        _setText(_textPower, getPowerShieldRatio());
+    }
+
+    private function _updateStandby():Void {
+
+        // 移動
+        _move();
+
         // シールドを消す
         _shield.kill();
         _shield.decayVelocity();
@@ -210,59 +289,12 @@ class Player extends FlxSprite {
 
         // ショット処理
         if(_isPressdShot()) {
-            _tShot--;
-            if(canShot()) {
-                // 弾が撃てる
-                var shot: Shot = _shots.getFirstDead();
-                if(shot != null) {
-                    shot.revive();
-                    shot.x = x + width/2 - shot.width/2;
-                    shot.y = y + height/2 - shot.height/2;
-                    shot.y += FlxRandom.floatRanged(0, 8); // 発射位置をランダムでずらす
-                    shot.velocity.y = -SPEED_SHOT;
-                    shot.velocity.x = 0;
-                    // スピード補正
-                    var func = function(v) {
-                        switch(v) {
-                            case a if(a < 10): return 0.2;
-                            case a if(a < 40): return 0.4;
-                            case a if(a < 70): return 0.6;
-                            case a if(a < 90): return 0.8;
-                            default: return 1;
-                        }
-                    }
-                    shot.velocity.y *= func(getPowerShotRatio());
-                }
-                // ショットタイマーを増やす
-                var func = function(v) {
-                    switch(v) {
-                        case a if(a < 10): return 16;
-                        case a if(a < 40): return 8;
-                        case a if(a < 70): return 4;
-                        case a if(a < 90): return 2;
-                        default: return 1;
-                    }
-                }
-                _tShot = func(getPowerShotRatio());
-            }
-            // ショットゲージを減らす
-            subPowerShot(POWER_SHOT_DEC);
-
-            // テキスト更新
-            _setText(_textPower, getPowerShotRatio());
+            _doShot();
         }
         else {
             // ショットを撃たなければシールドが使える
             if(_isPressShield() && getPowerShieldRatio() > 0) {
-                // シールド表示
-                _shield.revive();
-                _shield.x = x + width/2 - _shield.width/2;
-                _shield.y = y - SHIELD_OFS_Y;
-                // シールドゲージを減らす
-                subPowerShield(POWER_SHIELD_DEC);
-
-                // テキスト更新
-                _setText(_textPower, getPowerShieldRatio());
+                _doShield();
             }
         }
 
@@ -278,6 +310,18 @@ class Player extends FlxSprite {
         // テキスト更新
         _textPower.x = x - _textPower.width/2 + width/2;
         _textPower.y = y+8;
+    }
+    /**
+     * 更新
+     **/
+    override public function update():Void {
+
+        switch(_state) {
+        case State.Appear:
+            _updateAppear();
+        case State.Standby:
+            _updateStandby();
+        }
 
         super.update();
     }

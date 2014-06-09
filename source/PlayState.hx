@@ -19,6 +19,7 @@ import flixel.util.FlxMath;
  **/
 class PlayState extends FlxState {
 
+    // ■ゲームオブジェクト
     // プレイヤー
     private var _player:Player;
     // ショットグループ
@@ -34,15 +35,20 @@ class PlayState extends FlxState {
     // 大人カベ
     private var _walls:FlxGroup;
 
-    private var _timer:Int;
+    // テキスト
+    private var _textShot:FlxText;
+    private var _textShield:FlxText;
 
+    // デバッグ用
     private var _nShot:Int = 0;
     private var _nEnemy:Int = 0;
     private var _nBullet:Int = 0;
 
-    // テキスト
-    private var _textShot:FlxText;
-    private var _textShield:FlxText;
+    // ■ゲーム変数
+    private var _timer:Int; // 汎用タイマー
+    private var _lives:Int = 3; // 残機
+    private var _level:Int = 1; // 現在のレベル
+    private var _score:Int = 0; // スコア
 
 
     /**
