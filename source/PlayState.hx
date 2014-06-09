@@ -158,6 +158,8 @@ class PlayState extends FlxState {
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);
         FlxG.collide(_hormings, _enemys, _vsHormingEnemy);
+        FlxG.collide(_shots, _boss, _vsShotBoss);
+        FlxG.collide(_hormings, _boss, _vsHormingBoss);
         FlxG.collide(_player, _walls);
         FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
     }
@@ -176,6 +178,15 @@ class PlayState extends FlxState {
         horming.vanish();
     }
 
+    private function _vsShotBoss(shot:Shot, boss:Boss):Void {
+        boss.damage(1);
+        shot.kill();
+    }
+
+    private function _vsHormingBoss(horming:Horming, boss:Boss):Void {
+        boss.damage(1);
+        horming.vanish();
+    }
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
         bullet.kill();
         var h:Horming = _hormings.recycle();

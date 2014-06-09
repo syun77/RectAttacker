@@ -74,6 +74,7 @@ class Horming extends FlxSprite {
         _rotSpeed = FlxRandom.floatRanged(ROT_SPEED_START, ROT_SPEED_START*2);
 
         // Trailエフェクト表示
+        _trail.resetTrail();
         _trail.revive();
     }
 
