@@ -181,11 +181,17 @@ class Player extends FlxSprite {
         return true;
     }
 
+    /**
+     * 更新・出現
+     **/
     private function _updateAppear():Void {
 
         _state = State.Standby;
     }
 
+    /**
+     * 移動する
+     **/
     private function _move():Void {
         // 移動処理
         velocity.set(0, 0);
@@ -220,6 +226,9 @@ class Player extends FlxSprite {
 
     }
 
+    /**
+     * ショットを撃つ
+     **/
     private function _doShot():Void {
         _tShot--;
         if(canShot()) {
@@ -264,6 +273,9 @@ class Player extends FlxSprite {
 
     }
 
+    /**
+     * シールドを展開する
+     **/
     private function _doShield():Void {
         // シールド表示
         _shield.revive();
@@ -276,6 +288,9 @@ class Player extends FlxSprite {
         _setText(_textPower, getPowerShieldRatio());
     }
 
+    /**
+     * 更新・スタンバイ状態
+     **/
     private function _updateStandby():Void {
 
         // 移動
@@ -326,6 +341,9 @@ class Player extends FlxSprite {
         super.update();
     }
 
+    /**
+     * テキストの設定
+     **/
     private function _setText(text:FlxText, val:Int):Void {
         text.revive();
         switch(val) {
