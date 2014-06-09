@@ -175,7 +175,7 @@ class PlayState extends FlxState {
 
     private function _vsHormingEnemy(horming:Horming, enemy:Enemy):Void {
         enemy.damage(1);
-        horming.kill();
+        horming.vanish();
     }
 
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {

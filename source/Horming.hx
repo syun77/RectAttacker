@@ -1,5 +1,8 @@
 package ;
 
+import flixel.FlxG;
+import flixel.addons.effects.FlxTrail;
+import flixel.addons.effects.FlxTrail;
 import flixel.util.FlxPoint;
 import flixel.FlxG;
 import flixel.util.FlxAngle;
@@ -22,12 +25,21 @@ class Horming extends FlxSprite {
     // 移動速度
     private var _speed:Float = 300;
 
+    // Trailエフェクト
+    private var _trail:FlxTrail;
+
     public function new() {
         super(-100, -100);
         makeGraphic(4, 4, FlxColor.CYAN);
 
         // 初期状態は無効
         kill();
+
+        // Trail生成
+        _trail = new FlxTrail(this);
+        FlxG.state.add(_trail);
+        _trail.kill();
+
 
         /*
         FlxG.watch.add(this, "_myAngle");
@@ -48,6 +60,18 @@ class Horming extends FlxSprite {
         y = py;
         velocity.set(v.x, v.y);
         _myAngle = Math.atan2(-v.y, v.x) * FlxAngle.TO_DEG;
+
+        // Trailエフェクト表示
+        _trail.revive();
+    }
+
+    /**
+     * 消滅処理
+     **/
+    public function vanish():Void {
+        // Trail非表示
+        _trail.kill();
+        kill();
     }
 
     /**
