@@ -1,5 +1,6 @@
 package ;
 
+import flixel.util.FlxRandom;
 import flixel.FlxG;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.FlxTrail;
@@ -15,13 +16,21 @@ import flixel.FlxSprite;
  **/
 class Horming extends FlxSprite {
 
+    // 回転速度の初期値
+    private static inline var ROT_SPEED_START = 0.01;
+    // 回転速度の増加値
+    private static inline var ROT_SPEED_INC = 0.005;
+    // 速度の初期値
+    private static inline var SPEED_START = 100;
+    private static inline var SPEED_INC = 6;
+
     public static var s_enemys:FlxTypedGroup<Enemy>;
     public static var s_boss:Boss;
 
     private var _myAngle:Float;
 
     // 角速度
-    private var _rotSpeed:Float = 0.1;
+    private var _rotSpeed:Float = 0.01;
     // 移動速度
     private var _speed:Float = 100;
 
@@ -36,7 +45,7 @@ class Horming extends FlxSprite {
         kill();
 
         // Trail生成
-        _trail = new FlxTrail(this);
+        _trail = new FlxTrail(this, null, 8);
         FlxG.state.add(_trail);
         _trail.kill();
 
@@ -61,6 +70,9 @@ class Horming extends FlxSprite {
         velocity.set(v.x, v.y);
         _myAngle = Math.atan2(-v.y, v.x) * FlxAngle.TO_DEG;
 
+        _speed = FlxRandom.floatRanged(SPEED_START, SPEED_START*2);
+        _rotSpeed = FlxRandom.floatRanged(ROT_SPEED_START, ROT_SPEED_START*2);
+
         // Trailエフェクト表示
         _trail.revive();
     }
@@ -83,9 +95,13 @@ class Horming extends FlxSprite {
     private var _angle:Float = 0;
     private var _tmpAngle:Float = 0;
     override public function update():Void {
-
         super.update();
 
+        // 旋回速度の更新
+        _speed += SPEED_INC;
+        _rotSpeed += ROT_SPEED_INC;
+
+        // 旋回の実行
         _distance = 999999999;
         if(s_boss.exists) {
             _distance = FlxMath.distanceBetween(this, s_boss);

@@ -179,6 +179,6 @@ class PlayState extends FlxState {
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
         bullet.kill();
         var h:Horming = _hormings.recycle();
-        h.init(shield.x, shield.y, bullet.velocity);
+        h.init(bullet.x, bullet.y, bullet.velocity);
     }
 }
