@@ -101,12 +101,14 @@ class PlayState extends FlxState {
         var w4 = FlxG.width/4;
         var s = 4;
         var xList = [-s+w4, -s+w4, FlxG.width-w4, w4];
-        var yList = [-s, -s, 0, FlxG.height];
-        var wList = [s, FlxG.width+s, s, FlxG.width];
-        var hList = [FlxG.height+s, s, FlxG.height, s];
+//        var yList = [-s, -s, 0, FlxG.height];
+        var yList = [-s, -s, 0, FlxG.height-24];
+        var wList = [s, FlxG.width+s, s, FlxG.width-w4*2];
+//        var hList = [FlxG.height+s, s, FlxG.height, s];
+        var hList = [FlxG.height+s, s, FlxG.height, 24];
         for(i in 0...4) {
             var w:FlxSprite = new FlxSprite(xList[i], yList[i]);
-            w.makeGraphic(wList[i], hList[i], FlxColor.GRAY);
+            w.makeGraphic(Math.floor(wList[i]), hList[i], FlxColor.GRAY);
             w.alpha = 0.5;
             w.immovable = true;
             _walls.add(w);
@@ -114,8 +116,9 @@ class PlayState extends FlxState {
         add(_walls);
 
         // テキスト生成
-        _textShot = new FlxText(4, 4, 64);
-        _textShield = new FlxText(4, 20, 64);
+        add(_player.getPowerText());
+        _textShot = new FlxText(96, FlxG.height-12, 64);
+        _textShield = new FlxText(160, FlxG.height-12, 64);
         add(_textShot);
         add(_textShield);
 
@@ -143,12 +146,24 @@ class PlayState extends FlxState {
 
     }
 
+    private function _setTextColor(text:FlxText, val:Int):Void {
+        switch(val) {
+            case a if(a <= 10):
+                text.color = FlxColor.RED;
+            case a if(a <= 40):
+                text.color = FlxColor.YELLOW;
+            default:
+                text.color = FlxColor.WHITE;
+        }
+    }
     /**
      * テキスト更新
      **/
     private function _updateText():Void {
         _textShot.text = "Shot: "+_player.getPowerShotRatio() + "%";
+        _setTextColor(_textShot, _player.getPowerShotRatio());
         _textShield.text = "Shield: "+_player.getPowerShieldRatio() + "%";
+        _setTextColor(_textShield, _player.getPowerShieldRatio());
     }
 
     /**

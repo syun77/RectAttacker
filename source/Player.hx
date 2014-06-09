@@ -1,5 +1,7 @@
 package ;
 
+import flixel.util.FlxRandom;
+import flixel.text.FlxText;
 import flash.display.BlendMode;
 import flixel.group.FlxGroup;
 import flixel.group.FlxTypedGroup;
@@ -42,15 +44,20 @@ class Player extends FlxSprite {
     // ■ゲームオブジェクト
     // ショット
     private var _shots:FlxTypedGroup<Shot>;
-
     // シールド
     private var _shield:Shield;
+    // ゲージテキスト
+    private var _textPower:FlxText;
 
     // ■ゲージ
     // ショットゲージ
     private var _powerShot:Int = POWER_SHOT_START;
     // シールドゲージ
     private var _powerShield:Int = POWER_SHIELD_START;
+
+    // ■その他
+    // ショットタイマー
+    private var _tShot:Int = 0;
 
     /**
      * コンストラクタ
@@ -61,6 +68,16 @@ class Player extends FlxSprite {
         //immovable = true;
 
         _shield = new Shield();
+        _textPower = new FlxText(x, y, 64);
+        _textPower.setFormat(null, 8, FlxColor.WHITE, "center");
+        _textPower.text = "100%";
+    }
+
+    /**
+     * ゲージテキストを取得する
+     **/
+    public function getPowerText():FlxText {
+        return _textPower;
     }
 
     /**
@@ -134,6 +151,22 @@ class Player extends FlxSprite {
     }
 
     /**
+     * ショットを撃てるかどうか
+     **/
+    public function canShot():Bool {
+        if(getPowerShotRatio() <= 0) {
+            return false; // 撃てない
+        }
+
+        if(_tShot > 0) {
+            return false; // ショットタイマーが残っているので撃てない:w
+        }
+
+        // 撃てる
+        return true;
+    }
+
+    /**
      * 更新
      **/
     override public function update():Void {
@@ -172,19 +205,51 @@ class Player extends FlxSprite {
         // シールドを消す
         _shield.kill();
         _shield.decayVelocity();
+        // テキストを消す
+        _textPower.kill();
 
         // ショット処理
-        if(_isPressdShot() && getPowerShotRatio() > 0) {
-            var shot: Shot = _shots.getFirstDead();
-            if(shot != null) {
-                shot.revive();
-                shot.x = x + width/2 - shot.width/2;
-                shot.y = y + height/2 - shot.height/2;
-                shot.velocity.y = -SPEED_SHOT;
-                shot.velocity.x = 0;
+        if(_isPressdShot()) {
+            _tShot--;
+            if(canShot()) {
+                // 弾が撃てる
+                var shot: Shot = _shots.getFirstDead();
+                if(shot != null) {
+                    shot.revive();
+                    shot.x = x + width/2 - shot.width/2;
+                    shot.y = y + height/2 - shot.height/2;
+                    shot.y += FlxRandom.floatRanged(0, 8); // 発射位置をランダムでずらす
+                    shot.velocity.y = -SPEED_SHOT;
+                    shot.velocity.x = 0;
+                    // スピード補正
+                    var func = function(v) {
+                        switch(v) {
+                            case a if(a < 10): return 0.2;
+                            case a if(a < 40): return 0.4;
+                            case a if(a < 70): return 0.6;
+                            case a if(a < 90): return 0.8;
+                            default: return 1;
+                        }
+                    }
+                    shot.velocity.y *= func(getPowerShotRatio());
+                }
+                // ショットタイマーを増やす
+                var func = function(v) {
+                    switch(v) {
+                        case a if(a < 10): return 16;
+                        case a if(a < 40): return 8;
+                        case a if(a < 70): return 4;
+                        case a if(a < 90): return 2;
+                        default: return 1;
+                    }
+                }
+                _tShot = func(getPowerShotRatio());
             }
             // ショットゲージを減らす
             subPowerShot(POWER_SHOT_DEC);
+
+            // テキスト更新
+            _setText(_textPower, getPowerShotRatio());
         }
         else {
             // ショットを撃たなければシールドが使える
@@ -195,6 +260,9 @@ class Player extends FlxSprite {
                 _shield.y = y - SHIELD_OFS_Y;
                 // シールドゲージを減らす
                 subPowerShield(POWER_SHIELD_DEC);
+
+                // テキスト更新
+                _setText(_textPower, getPowerShieldRatio());
             }
         }
 
@@ -207,7 +275,23 @@ class Player extends FlxSprite {
             addPowerShield(POWER_SHIELD_INC);
         }
 
+        // テキスト更新
+        _textPower.x = x - _textPower.width/2 + width/2;
+        _textPower.y = y+8;
+
         super.update();
     }
 
+    private function _setText(text:FlxText, val:Int):Void {
+        text.revive();
+        switch(val) {
+            case a if(a <= 10):
+                text.color = FlxColor.RED;
+            case a if(a <= 40):
+                text.color = FlxColor.YELLOW;
+            default:
+                text.color = FlxColor.WHITE;
+        }
+        text.text = val + "%";
+    }
 }
