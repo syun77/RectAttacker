@@ -60,6 +60,7 @@ class PlayState extends FlxState {
         // プレイヤー生成
         _player = new Player();
         add(_player);
+        _player.init();
         // シールドを登録
         add(_player.getShield());
 
@@ -209,6 +210,11 @@ class PlayState extends FlxState {
 
     private function _vsPlayerBullet(player:Player, bullet:Bullet):Void {
         bullet.kill();
+        if(_player.isInvisibled() == false) {
+
+            // 死亡処理
+            _player.init();
+        }
     }
 
     private function _vsShotEnemy(shot:Shot, enemy:Enemy):Void {

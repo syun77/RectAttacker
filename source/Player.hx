@@ -48,6 +48,10 @@ class Player extends FlxSprite {
     static inline private var POWER_SHIELD_DEC = 8;
     // シールドゲージの1フレームあたりの回復量
     static inline private var POWER_SHIELD_INC = 1;
+    // 無敵タイマー
+    static inline private var TIMER_INVISIBLED = 120;
+    // 出現演出タイマー
+    static inline private var TIMER_APPEAR = 30;
 
     // ■ゲームオブジェクト
     // ショット
@@ -71,7 +75,7 @@ class Player extends FlxSprite {
     // タイマー
     private var _timer:Int = 0;
     // 無敵タイマー
-    private var _tInvisibled:Bool = true;
+    private var _tInvisibled:Int = TIMER_INVISIBLED;
 
     /**
      * コンストラクタ
@@ -86,6 +90,9 @@ class Player extends FlxSprite {
         _textPower.setFormat(null, 8, FlxColor.WHITE, "center");
         _textPower.text = "100%";
         _textPower.kill();
+
+        FlxG.watch.add(this, "_state");
+        FlxG.watch.add(this, "_timer");
     }
 
     /**
@@ -107,6 +114,13 @@ class Player extends FlxSprite {
      **/
     public function getShield():Shield {
         return _shield;
+    }
+
+    /**
+     * 無敵中かどうか
+     **/
+    public function isInvisibled():Bool {
+        return _tInvisibled > 0;
     }
 
     /**
@@ -168,7 +182,7 @@ class Player extends FlxSprite {
     /**
      * ショットを撃てるかどうか
      **/
-    public function canShot():Bool {
+    private function _canShot():Bool {
         if(getPowerShotRatio() <= 0) {
             return false; // 撃てない
         }
@@ -182,11 +196,29 @@ class Player extends FlxSprite {
     }
 
     /**
+     * 出現開始
+     **/
+    public function init():Void {
+
+        x = FlxG.width/2;
+        y = FlxG.height;
+        _state = State.Appear;
+        _timer = TIMER_APPEAR;
+        _tInvisibled = TIMER_INVISIBLED;
+        immovable = true;
+    }
+
+    /**
      * 更新・出現
      **/
     private function _updateAppear():Void {
-
-        _state = State.Standby;
+        _timer = cast _timer * 0.9;
+        y = FlxMath.lerp(FlxG.height-64, FlxG.height, _timer/TIMER_APPEAR);
+        if(_timer < 1) {
+            // 待機状態へ
+            _state = State.Standby;
+            immovable = false;
+        }
     }
 
     /**
@@ -231,7 +263,7 @@ class Player extends FlxSprite {
      **/
     private function _doShot():Void {
         _tShot--;
-        if(canShot()) {
+        if(_canShot()) {
             // 弾が撃てる
             var shot: Shot = _shots.getFirstDead();
             if(shot != null) {
@@ -330,6 +362,11 @@ class Player extends FlxSprite {
      * 更新
      **/
     override public function update():Void {
+
+        if(_tInvisibled > 0) {
+            _tInvisibled--;
+            visible = (_tInvisibled%4 < 2);
+        }
 
         switch(_state) {
         case State.Appear:
