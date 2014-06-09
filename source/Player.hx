@@ -23,15 +23,15 @@ class Player extends FlxSprite {
     // シールドのオフセット座標
     static inline private var SHIELD_OFS_Y = 16;
     // ショットゲージの初期値
-    static inline private var POWER_SHOT_START = 50;
+    static inline private var POWER_SHOT_START = cast POWER_SHOT_MAX/2;
     // ショットゲージの最大値
-    static inline private var POWER_SHOT_MAX = 100;
+    static inline private var POWER_SHOT_MAX = 60 * 5 * POWER_SHOT_DEC;
     // ショットゲージの1フレームあたりの減少量
     static inline private var POWER_SHOT_DEC = 2;
     // シールドゲージの初期値
-    static inline private var POWER_SHIELD_START = 50;
+    static inline private var POWER_SHIELD_START = cast POWER_SHIELD_MAX/2;
     // シールドゲージの最大値
-    static inline private var POWER_SHIELD_MAX = 100;
+    static inline private var POWER_SHIELD_MAX = 60 * 2 * POWER_SHIELD_DEC;
     // シールドゲージの1フレームあたりの減少量
     static inline private var POWER_SHIELD_DEC = 4;
 
@@ -170,7 +170,7 @@ class Player extends FlxSprite {
         _shield.decayVelocity();
 
         // ショット処理
-        if(_isPressdShot()) {
+        if(_isPressdShot() && getPowerShotRatio() > 0) {
             var shot: Shot = _shots.getFirstDead();
             if(shot != null) {
                 shot.revive();
@@ -179,14 +179,18 @@ class Player extends FlxSprite {
                 shot.velocity.y = -SPEED_SHOT;
                 shot.velocity.x = 0;
             }
+            // ショットゲージを減らす
+            subPowerShot(POWER_SHOT_DEC);
         }
         else {
             // ショットを撃たなければシールドが使える
-            if(_isPressShield()) {
+            if(_isPressShield() && getPowerShieldRatio() > 0) {
                 // シールド表示
                 _shield.revive();
                 _shield.x = x + width/2 - _shield.width/2;
                 _shield.y = y - SHIELD_OFS_Y;
+                // シールドゲージを減らす
+                subPowerShield(POWER_SHIELD_DEC);
             }
         }
         super.update();
