@@ -73,6 +73,7 @@ class PlayState extends FlxState {
         _boss = new Boss();
         Boss.s_enemys = _enemys;
         add(_boss);
+        add(_boss.getText());
 
         // ホーミンググループ
         _hormings = new FlxTypedGroup<Horming>(128);

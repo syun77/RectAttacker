@@ -1,5 +1,6 @@
 package ;
 
+import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.util.FlxAngle;
@@ -17,13 +18,23 @@ class Boss extends FlxSprite {
     private var _timer:Int = 0;
     private var _id:Int = 0;
 
+    private var _text:FlxText;
+
     public function new() {
         super(-100, -100);
         makeGraphic(8, 8, FlxColor.GREEN);
         immovable = true; // 反動で動かないようにする
 
+        _text = new FlxText(-100, -100, 64);
+        _text.setFormat(null, 8, FlxColor.WHITE, "center");
+        _text.kill();
+
         // 非表示にする
         kill();
+    }
+
+    public function getText():FlxText {
+        return _text;
     }
 
     /**
@@ -39,6 +50,19 @@ class Boss extends FlxSprite {
         // 出現位置調整
         x -= size/2;
         y -= size/2;
+
+        _text.revive();
+        _text.x = x + width/2 - _text.width/2;
+        _text.y = y + height/2 - _text.height/2;
+        _text.text = "" + _hp;
+    }
+
+    /**
+     * 消滅する
+     **/
+    public function vanish():Void {
+        kill();
+        _text.kill();
     }
 
     /**
@@ -48,8 +72,11 @@ class Boss extends FlxSprite {
         _hp -= val;
         if(_hp <= 0) {
             _hp = 0;
-            kill();
+            vanish(); // 消滅する
         }
+
+        // テキスト更新
+        _text.text = "" + _hp;
     }
 
     /**
