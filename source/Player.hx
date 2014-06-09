@@ -27,13 +27,17 @@ class Player extends FlxSprite {
     // ショットゲージの最大値
     static inline private var POWER_SHOT_MAX = 60 * 5 * POWER_SHOT_DEC;
     // ショットゲージの1フレームあたりの減少量
-    static inline private var POWER_SHOT_DEC = 2;
+    static inline private var POWER_SHOT_DEC = 4;
+    // ショットゲージの1フレームあたりの回復量
+    static inline private var POWER_SHOT_INC = 2;
     // シールドゲージの初期値
     static inline private var POWER_SHIELD_START = cast POWER_SHIELD_MAX/2;
     // シールドゲージの最大値
     static inline private var POWER_SHIELD_MAX = 60 * 2 * POWER_SHIELD_DEC;
     // シールドゲージの1フレームあたりの減少量
-    static inline private var POWER_SHIELD_DEC = 4;
+    static inline private var POWER_SHIELD_DEC = 8;
+    // シールドゲージの1フレームあたりの回復量
+    static inline private var POWER_SHIELD_INC = 1;
 
     // ■ゲームオブジェクト
     // ショット
@@ -193,6 +197,16 @@ class Player extends FlxSprite {
                 subPowerShield(POWER_SHIELD_DEC);
             }
         }
+
+        if(_isPressdShot() == false) {
+            // ショットゲージ回復
+            addPowerShot(POWER_SHOT_INC);
+        }
+        if(_isPressShield() == false) {
+            // シールドゲージ回復
+            addPowerShield(POWER_SHIELD_INC);
+        }
+
         super.update();
     }
 
