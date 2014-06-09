@@ -40,6 +40,10 @@ class PlayState extends FlxState {
     private var _nEnemy:Int = 0;
     private var _nBullet:Int = 0;
 
+    // テキスト
+    private var _textShot:FlxText;
+    private var _textShield:FlxText;
+
 
     /**
      * 生成
@@ -54,7 +58,7 @@ class PlayState extends FlxState {
         add(_player.getShield());
 
         // ショット生成
-        _shots = new FlxTypedGroup<Shot>(8);
+        _shots = new FlxTypedGroup<Shot>(64);
         for(i in 0..._shots.maxSize) {
             _shots.add(new Shot());
         }
@@ -109,6 +113,12 @@ class PlayState extends FlxState {
         }
         add(_walls);
 
+        // テキスト生成
+        _textShot = new FlxText(4, 4, 64);
+        _textShield = new FlxText(4, 20, 64);
+        add(_textShot);
+        add(_textShield);
+
         // 各種変数初期化
         _timer = 0;
 
@@ -134,9 +144,20 @@ class PlayState extends FlxState {
     }
 
     /**
+     * テキスト更新
+     **/
+    private function _updateText():Void {
+        _textShot.text = "Shot: "+_player.getPowerShotRatio() + "%";
+        _textShield.text = "Shield: "+_player.getPowerShieldRatio() + "%";
+    }
+
+    /**
      * 更新
      **/
     override public function update():Void {
+
+        // テキスト更新
+        _updateText();
 
         _timer++;
         if(_timer%60 == 0 && _boss.exists == false) {

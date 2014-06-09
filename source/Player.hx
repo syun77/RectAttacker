@@ -14,6 +14,7 @@ import flixel.FlxSprite;
  **/
 class Player extends FlxSprite {
 
+    // ■定数定義
     // 移動速度
     static inline private var SPEED = 150;
     static inline private var SPEED_DECAY = 0.4; // ボタンを押している時
@@ -21,12 +22,31 @@ class Player extends FlxSprite {
     static inline private var SPEED_SHOT = 500;
     // シールドのオフセット座標
     static inline private var SHIELD_OFS_Y = 16;
+    // ショットゲージの初期値
+    static inline private var POWER_SHOT_START = 50;
+    // ショットゲージの最大値
+    static inline private var POWER_SHOT_MAX = 100;
+    // ショットゲージの1フレームあたりの減少量
+    static inline private var POWER_SHOT_DEC = 2;
+    // シールドゲージの初期値
+    static inline private var POWER_SHIELD_START = 50;
+    // シールドゲージの最大値
+    static inline private var POWER_SHIELD_MAX = 100;
+    // シールドゲージの1フレームあたりの減少量
+    static inline private var POWER_SHIELD_DEC = 4;
 
+    // ■ゲームオブジェクト
     // ショット
     private var _shots:FlxTypedGroup<Shot>;
 
     // シールド
     private var _shield:Shield;
+
+    // ■ゲージ
+    // ショットゲージ
+    private var _powerShot:Int = POWER_SHOT_START;
+    // シールドゲージ
+    private var _powerShield:Int = POWER_SHIELD_START;
 
     /**
      * コンストラクタ
@@ -65,6 +85,48 @@ class Player extends FlxSprite {
      **/
     private function _isPressShield():Bool {
         return FlxG.keys.anyPressed(["SHIFT", "X"]);
+    }
+
+    /**
+     * ショットゲージの割合を取得する
+     * @return 0〜100
+     **/
+    public function getPowerShotRatio():Int {
+        return Math.floor(100 * _powerShot / POWER_SHOT_MAX);
+    }
+
+    /**
+     * シールドゲージの割合を取得する
+     * @return 0〜100
+     **/
+    public function getPowerShieldRatio():Int {
+        return Math.floor(100 * _powerShield / POWER_SHIELD_MAX);
+    }
+
+    /**
+     * ショットゲージを増加する
+     * @param val 増加する値
+     **/
+    public function addPowerShot(val:Int):Void {
+        _powerShot += val;
+        _powerShot = cast(Math.min(_powerShot, POWER_SHOT_MAX));
+    }
+
+    /**
+     * シールドゲージを増加する
+     * @param val 増加する値
+     **/
+    public function addPowerShield(val:Int):Void {
+        _powerShield += val;
+        _powerShield = cast(Math.min(_powerShield, POWER_SHIELD_MAX));
+    }
+    public function subPowerShot(val:Int):Void {
+        _powerShot -= val;
+        _powerShot = cast(Math.max(_powerShot, 0));
+    }
+    public function subPowerShield(val:Int):Void {
+        _powerShield -= val;
+        _powerShield = cast(Math.max(_powerShield, 0));
     }
 
     /**
