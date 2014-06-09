@@ -103,6 +103,10 @@ class Player extends FlxSprite {
         velocity.x += _shield.velocity.x;
         velocity.y += _shield.velocity.y;
 
+        // シールドを消す
+        _shield.kill();
+        _shield.decayVelocity();
+
         // ショット処理
         if(_isPressdShot()) {
             var shot: Shot = _shots.getFirstDead();
@@ -122,11 +126,6 @@ class Player extends FlxSprite {
                 _shield.x = x + width/2 - _shield.width/2;
                 _shield.y = y - SHIELD_OFS_Y;
             }
-            else {
-                // シールドを消す
-                _shield.kill();
-            }
-
         }
         super.update();
     }

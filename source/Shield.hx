@@ -7,6 +7,9 @@ import flixel.FlxSprite;
  * シールド
  **/
 class Shield extends FlxSprite {
+
+    private static inline var _DECAY_VOLOCITY = 0.9;
+
     public function new() {
         super(-100, -100);
         makeGraphic(10, 4, FlxColor.GOLDEN);
@@ -20,9 +23,13 @@ class Shield extends FlxSprite {
      **/
     override public function update():Void {
         super.update();
+    }
 
-        // 反動を減衰
-        velocity.x *= 0.9;
-        velocity.y *= 0.9;
+    /**
+     * 反動を減衰する
+     **/
+    public function decayVelocity():Void {
+        velocity.x *= _DECAY_VOLOCITY;
+        velocity.y *= _DECAY_VOLOCITY;
     }
 }
