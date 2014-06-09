@@ -12,7 +12,7 @@ class Bullet extends FlxSprite {
     public function new() {
         super();
         loadGraphic("assets/images/bullet.png", true);
-        FlxG.debugger.drawDebug = true;
+//        FlxG.debugger.drawDebug = true;
         width /= 2;
         height /= 2;
         centerOffsets();

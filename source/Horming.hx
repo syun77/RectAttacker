@@ -23,7 +23,7 @@ class Horming extends FlxSprite {
     // 角速度
     private var _rotSpeed:Float = 0.1;
     // 移動速度
-    private var _speed:Float = 300;
+    private var _speed:Float = 100;
 
     // Trailエフェクト
     private var _trail:FlxTrail;

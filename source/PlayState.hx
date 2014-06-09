@@ -39,7 +39,6 @@ class PlayState extends FlxState {
     private var _nShot:Int = 0;
     private var _nEnemy:Int = 0;
     private var _nBullet:Int = 0;
-    private var _dbgButton:FlxSystemButton;
 
 
     /**
@@ -123,7 +122,6 @@ class PlayState extends FlxState {
         FlxG.watch.add(_player.getShield(), "exists");
         FlxG.watch.add(_player.getShield(), "x");
         FlxG.watch.add(_player.getShield(), "y");
-        _dbgButton = FlxG.debugger.addButton(ButtonAlignment.MIDDLE, _player.getFlxFrameBitmapData(), FlxG.resetState);
     }
 
     /**
@@ -131,7 +129,7 @@ class PlayState extends FlxState {
      **/
     override public function destroy():Void {
         super.destroy();
-        FlxG.debugger.removeButton(_dbgButton);
+
     }
 
     /**
