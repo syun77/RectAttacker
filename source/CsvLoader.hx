@@ -49,6 +49,10 @@ class CsvLoader {
         }
     }
 
+    /**
+     * データ数を取得する
+     * @return データ数
+     **/
     public function size():Int {
         var cnt:Int = 0;
         for(k in _datas.keys()) {
@@ -57,10 +61,28 @@ class CsvLoader {
         return cnt;
     }
 
+    /**
+     * 指定のIDが存在するかどうかチェックする
+     * @param id id
+     * @return 存在すればtrue
+     **/
+    public function hasId(id:Int):Bool {
+        return _datas.exists(id);
+    }
+
+    /**
+     * id配列を取得する
+     **/
     public function keys():Iterator<Int> {
         return _datas.keys();
     }
 
+    /**
+     * 値を文字列として取得する
+     * @param id id
+     * @param key キー文字列
+     * @return 値
+     **/
     public function getString(id:Int, key:String):String {
         var data:Map<String, String> = _datas.get(id);
         if(data.exists(key) == false) {
@@ -68,6 +90,13 @@ class CsvLoader {
         }
         return data.get(key);
     }
+
+    /**
+     * 値を数値として取得する
+     * @param id id
+     * @param key キー文字列
+     * @return 値
+     **/
     public function getInt(id:Int, key:String):Int {
         return Std.parseInt(getString(id, key));
     }

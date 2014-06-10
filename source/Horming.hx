@@ -19,10 +19,10 @@ class Horming extends FlxSprite {
     // 回転速度の初期値
     private static inline var ROT_SPEED_START = 0.01;
     // 回転速度の増加値
-    private static inline var ROT_SPEED_INC = 0.005;
+    private static inline var ROT_SPEED_INC = 0.003;
     // 速度の初期値
     private static inline var SPEED_START = 100;
-    private static inline var SPEED_INC = 6;
+    private static inline var SPEED_INC = 3;
 
     public static var s_enemys:FlxTypedGroup<Enemy>;
     public static var s_boss:Boss;
@@ -113,6 +113,12 @@ class Horming extends FlxSprite {
         }
 
         s_enemys.forEachAlive(_checkDistance);
+
+        if(_distance >= 999999999) {
+            // 敵がいない
+            return;
+        }
+
         // FlxMath.angleBetween()が左回転で実装しているので
         // 回転方向を右回りに変換する
         _angle = if(_angle > 0) 360 - _angle else _angle * -1;

@@ -57,6 +57,9 @@ class PlayState extends FlxState {
 
     // CSV
     private var _csvEnemy:CsvLoader;
+    private var _csvBoss1:CsvLoader;
+    private var _csvBoss2:CsvLoader;
+    private var _csvBoss3:CsvLoader;
 
     // テキスト
     private var _textShot:FlxText;
@@ -152,6 +155,10 @@ class PlayState extends FlxState {
         _csvEnemy = new CsvLoader();
         _csvEnemy.load("assets/data/enemy.csv");
         Enemy.csv = _csvEnemy;
+        _csvBoss1 = new CsvLoader();
+        _csvBoss1.load("assets/data/boss1.csv");
+        _csvBoss2 = new CsvLoader();
+        _csvBoss2.load("assets/data/boss2.csv");
 
         // テキスト生成
         add(_player.getPowerText());
@@ -159,10 +166,10 @@ class PlayState extends FlxState {
         _textShield = new FlxText(160, FlxG.height-12, 64);
         _textLevel = new FlxText(4, 4, 64);
         _textLife = new FlxText(4, 4+12, 64);
-        _textMessage = new FlxText(0, FlxG.height/2, FlxG.width, 8*2);
+        _textMessage = new FlxText(0, FlxG.height/2-32, FlxG.width, 8*2);
         _textMessage.alignment = "center";
         _textMessage.visible = false;
-        _textPressKey = new FlxText(0, FlxG.height/2 + 32, FlxG.width);
+        _textPressKey = new FlxText(0, FlxG.height/2 + 16, FlxG.width);
         _textPressKey.alignment = "center";
         _textPressKey.text = "press z or space key.";
         _textPressKey.visible = false;
@@ -204,6 +211,7 @@ class PlayState extends FlxState {
 
     private function _nextLevel():Void {
         _level++;
+        Enemy.level = _level;
         _textMessage.visible = true;
         _textMessage.x = -200;
         _textMessage.text = "LEVEL: " + _level;
@@ -303,8 +311,9 @@ class PlayState extends FlxState {
         if(_timer%60 == 0 && _boss.exists == false) {
             _boss.revive();
             _boss.x = FlxG.width/2;
-            _boss.y = 64;
-            _boss.init(1);
+            _boss.y = 32;
+//            _boss.init(1, _csvBoss1);
+            _boss.init(1, _csvBoss2);
         }
 
         // 当たり判定

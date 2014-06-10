@@ -1,5 +1,5 @@
 package ;
-import Reflect;
+import flixel.FlxG;
 import flixel.util.FlxAngle;
 import flixel.group.FlxTypedGroup;
 import flixel.util.FlxColor;
@@ -9,6 +9,8 @@ private enum State {
     Init;
     Appear;
     Main;
+    Main2;
+    Main3;
 }
 
 /**
@@ -18,6 +20,7 @@ class Enemy extends FlxSprite {
     static public var target:Player;
     static public var s_bullets:FlxTypedGroup<Bullet>;
     static public var csv:CsvLoader;
+    static public var level:Int = 0;
 
     private var _id:Int = 0;
     private var _state:State;
@@ -25,6 +28,7 @@ class Enemy extends FlxSprite {
     private var _tDestroy:Int = 0;
     private var _hpmax:Int = 0;
     private var _hp:Int = 0;
+    private var _val:Float = 0;
 
     private function _update001():Void {
         _decay(0.95);
@@ -36,15 +40,152 @@ class Enemy extends FlxSprite {
                 _timer--;
                 if(_timer < 1 ) {
                     _state = State.Main;
+                    _timer = 100;
                 }
             case State.Main:
                 _timer++;
-                if(_timer%240 == 0) {
-                    bulletNWay(getAim(), 5, 60, 100);
+                if(_timer%120== 0) {
+                    var n = 3 + Math.floor(level/3);
+                    var speed = 50 + level*10;
+                    bulletNWay(getAim(), 3, 5, 50);
+
                 }
-                if(_timer%240 == 120) {
-                    bulletNWay(getAim(), 6, 60, 100);
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+    private function _update002():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                    _val = getAim();
                 }
+            case State.Main:
+                _timer++;
+                if(_timer%5== 0) {
+                    var speed = 150 + level*20;
+                    bullet(_val, speed);
+                }
+                if(_timer > 20+level*3) {
+                    _timer = 0;
+                    _state = State.Main2;
+                }
+            case State.Main2:
+                _timer++;
+                if(_timer > 80) {
+                    _timer = 0;
+                    _state = State.Appear;
+                }
+
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+    private function _update003():Void {
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _decay(0.97);
+                _timer--;
+                if(_timer < 1) {
+                    _state = State.Main;
+                    velocity.x = 0;
+                    velocity.y = 50;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+                var interval:Int = 50 - level;
+                interval = if(interval < 20) 20 else interval;
+                if(_timer%interval == 0) {
+                    var speed = 80 + level*10;
+                    var dir = if(x > FlxG.width/2) 180 else 0;
+                    bullet(dir, speed);
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+    private function _update004():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 100;
+                }
+            case State.Main:
+                _timer++;
+                if(_timer%120== 0) {
+                    var speed = 100 + 10 * level;
+                    bulletAim(0, speed);
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+    private function _update005():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+                if(_timer%4 == 0) {
+                    var rad = _timer * FlxAngle.TO_RAD * 2;
+                    var speed = 120 + level * 15;
+                    var range = 10 + level * 1;
+                    if(range > 40) { range = 40; }
+                    bullet(270+Math.cos(rad)*10, speed);
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+    private function _update006():Void {
+        switch(_state) {
+            case State.Init:
+                _timer = 30;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                _decay(0.93);
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 50;
+                }
+            case State.Main:
+                _timer++;
+                var speed = 50 + level * 5;
+                var v = _timer%120;
+                switch(v) {
+                case 59: _val = getAim();
+                case 60, 65, 70, 75, 80:
+                    speed += v%60*3;
+                    bullet(_val, speed+10);
+                }
+            default:
+                trace("Warning: not expect.");
         }
     }
 
@@ -62,6 +203,7 @@ class Enemy extends FlxSprite {
      * @param id 敵ID
      **/
     public function init(id:Int):Void {
+        revive();
         _id = id;
         _hp = csv.getInt(id, "hp");
         _hpmax = _hp;
@@ -105,7 +247,12 @@ class Enemy extends FlxSprite {
         super.update();
 
         switch(_id) {
-        case 1: _update001();
+            case 1: _update001();
+            case 2: _update002();
+            case 3: _update003();
+            case 4: _update004();
+            case 5: _update005();
+            case 6: _update006();
         }
 
         if(isOnScreen()==false) {
@@ -114,11 +261,9 @@ class Enemy extends FlxSprite {
         }
 
         _tDestroy -= 1;
-        /*
         if(_tDestroy < 1) {
             vanish(false);
         }
-        */
     }
 
     /**

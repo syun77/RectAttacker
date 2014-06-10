@@ -1,3 +1,9 @@
 id,name,hp,size,destroy
 int,str,int,int,int
-1,hoge,3,8,240
+1,zako,1,8,400
+2,aim,10,12,400
+3,side,10,12,500
+4,aim2,1,4,400
+5,winder,20,12,400
+6,45way,5,12,320
+7,invader,1,8,500

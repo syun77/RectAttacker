@@ -19,10 +19,11 @@ class Boss extends FlxSprite {
     private var _id:Int = 0;
 
     private var _text:FlxText;
+    private var _csv:CsvLoader;
 
     public function new() {
         super(-100, -100);
-        makeGraphic(8, 8, FlxColor.GREEN);
+        makeGraphic(16, 16, FlxColor.GREEN);
         immovable = true; // 反動で動かないようにする
 
         _text = new FlxText(-100, -100, 64);
@@ -31,6 +32,8 @@ class Boss extends FlxSprite {
 
         // 非表示にする
         kill();
+
+        FlxG.watch.add(this, "_timer");
     }
 
     public function getText():FlxText {
@@ -41,9 +44,9 @@ class Boss extends FlxSprite {
      * 初期化
      * @param id 敵ID
      **/
-    public function init(id:Int):Void {
+    public function init(id:Int, csv:CsvLoader):Void {
         _id = id;
-        _hp = 30;
+        _hp = 45 + id * 5;
         _hpmax = _hp;
         /*
         var size = FlxRandom.intRanged(8, 32);
@@ -57,6 +60,10 @@ class Boss extends FlxSprite {
         _text.x = x + width/2 - _text.width/2;
         _text.y = y + height/2 - _text.height/2;
         _text.text = "" + _hp;
+
+        _csv = csv;
+
+        _timer = 0;
     }
 
     /**
@@ -84,23 +91,38 @@ class Boss extends FlxSprite {
     /**
      * 敵の生成
      **/
-    public function addEnemy(dir:Float, speed:Float):Void {
-        var e:Enemy = s_enemys.recycle();
-        e.x = FlxG.width/2;
-        e.y = 64;
-        var rad = dir*FlxAngle.TO_RAD;
-        e.velocity.x = speed * Math.cos(rad);
-        e.velocity.y = speed * Math.sin(rad);
-        e.init(1);
+    public function addEnemy(eid:Int, dir:Float, speed:Float):Void {
+        var e:Enemy = s_enemys.getFirstDead();
+        if(e != null) {
+//            trace("eid="+eid+" dir="+dir+" speed="+speed);
+            e.x = x + width/2;
+            e.y = y + height/2;
+            var rad = dir*FlxAngle.TO_RAD;
+            e.velocity.x = speed * Math.cos(rad);
+            e.velocity.y = speed * -Math.sin(rad);
+            e.init(eid);
+
+        }
     }
 
     override public function update():Void {
         super.update();
 
         _timer++;
-//        if(_timer%127 == 0) {
-        if(_timer == 120) {
-            addEnemy(FlxRandom.floatRanged(270-45, 270+45), 100);
+        var i = _timer;
+        if(_csv.hasId(i)) {
+            var cmd = _csv.getString(i, "cmd");
+            switch(cmd) {
+            case "e":
+                var eid = _csv.getInt(i, "eid");
+                var dir = _csv.getInt(i, "dir");
+                var speed = _csv.getInt(i, "speed");
+                var rnd = _csv.getInt(i, "rnd");
+                addEnemy(eid, dir+FlxRandom.floatRanged(0, rnd), speed);
+            case "time":
+                var val = _csv.getInt(i, "val");
+                _timer = val;
+            }
         }
     }
 }

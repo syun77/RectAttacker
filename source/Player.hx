@@ -263,7 +263,7 @@ class Player extends FlxSprite {
         }
 
         // シールドの反動
-        velocity.x += _shield.velocity.x;
+//        velocity.x += _shield.velocity.x;
         velocity.y += _shield.velocity.y;
 
     }
