@@ -19,6 +19,7 @@ import flixel.util.FlxMath;
  **/
 private enum State {
     Main; // メイン
+    Damage; // 被弾
     GameoverInt; // ゲームオーバー・初期化
     GameoverMain; // ゲームオーバー・メイン
 }
@@ -29,7 +30,10 @@ private enum State {
 class PlayState extends FlxState {
 
     // ■定数
+    // 最初の残基数
     private static inline var LIVES_START = 3;
+    // ダメージタイマー
+    private static inline var TIMER_DAMAGE = 30;
 
     // ■ゲームオブジェクト
     // プレイヤー
@@ -63,7 +67,7 @@ class PlayState extends FlxState {
     private var _lives:Int = 3; // 残機
     private var _level:Int = 1; // 現在のレベル
     private var _score:Int = 0; // スコア
-    private var _state:State; // 状態
+    private var _state:State = State.Main; // 状態
 
 
     /**
@@ -151,15 +155,17 @@ class PlayState extends FlxState {
 
         // デバッグ機能
         FlxG.debugger.toggleKeys = ["ALT"];
+        FlxG.watch.add(this, "_state");
+        FlxG.watch.add(this, "_timer");
         FlxG.watch.add(this, "_nShot");
         FlxG.watch.add(this, "_nEnemy");
         FlxG.watch.add(this, "_nBullet");
         FlxG.watch.add(_player, "x");
         FlxG.watch.add(_player, "y");
         FlxG.watch.add(_boss, "exists");
-        FlxG.watch.add(_player.getShield(), "exists");
-        FlxG.watch.add(_player.getShield(), "x");
-        FlxG.watch.add(_player.getShield(), "y");
+//        FlxG.watch.add(_player.getShield(), "exists");
+//        FlxG.watch.add(_player.getShield(), "x");
+//        FlxG.watch.add(_player.getShield(), "y");
     }
 
     /**
@@ -195,21 +201,9 @@ class PlayState extends FlxState {
         }
     }
 
-    /**
-     * 更新
-     **/
-    override public function update():Void {
-
+    private function _updatePre():Void {
         // テキスト更新
         _updateText();
-
-        _timer++;
-        if(_timer%60 == 0 && _boss.exists == false) {
-            _boss.revive();
-            _boss.x = FlxG.width/2;
-            _boss.y = 64;
-            _boss.init(1);
-        }
 
         _nShot = _shots.countLiving();
         _nEnemy = _enemys.countLiving();
@@ -220,6 +214,53 @@ class PlayState extends FlxState {
             throw "Terminate.";
         }
 
+
+    }
+
+    /**
+     * 更新有効フラグを設定する
+     **/
+    private function _setActiveAll(b:Bool):Void {
+        _player.active = b;
+        _shots.active = b;
+        _hormings.active = b;
+        _enemys.active = b;
+        _boss.active = b;
+        _bullets.active = b;
+
+    }
+
+    /**
+     * 更新
+     **/
+    override public function update():Void {
+
+        _updatePre();
+
+        switch(_state) {
+            case State.Main:
+                _updateMain();
+            case State.Damage:
+                _updateDamage();
+            case State.GameoverInt:
+                // TODO:
+            case State.GameoverMain:
+                // TODO:
+        }
+
+    }
+
+
+    private function _updateMain():Void {
+
+        _timer++;
+        if(_timer%60 == 0 && _boss.exists == false) {
+            _boss.revive();
+            _boss.x = FlxG.width/2;
+            _boss.y = 64;
+            _boss.init(1);
+        }
+
         // 当たり判定
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);
@@ -228,6 +269,13 @@ class PlayState extends FlxState {
         FlxG.collide(_hormings, _boss, _vsHormingBoss);
         FlxG.collide(_player, _walls);
         FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
+    }
+    private function _updateDamage():Void {
+        _timer--;
+        if(_timer < 1) {
+            _state = State.Main;
+            _setActiveAll(true);
+        }
     }
 
     private function _vsPlayerBullet(player:Player, bullet:Bullet):Void {
@@ -242,6 +290,13 @@ class PlayState extends FlxState {
             else {
                 // 復活
                 _player.init();
+                // ダメージ状態へ
+                FlxG.camera.flash(0xffFFFFFF, 0.3);
+                FlxG.camera.shake(0.02, 0.35);
+
+                _state = State.Damage;
+                _timer = TIMER_DAMAGE;
+                _setActiveAll(false); // すべてのオブジェクトの動きを止める
             }
 
         }
