@@ -14,7 +14,7 @@ import flixel.FlxSprite;
 /**
  * 状態
  **/
-enum State {
+private enum State {
     Appear;  // 出現状態
     Standby; // 待機
 }
@@ -206,6 +206,8 @@ class Player extends FlxSprite {
         _timer = TIMER_APPEAR;
         _tInvisibled = TIMER_INVISIBLED;
         immovable = true;
+        _shield.kill();
+        _textPower.kill();
     }
 
     /**

@@ -15,9 +15,21 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 
 /**
+ * 状態
+ **/
+private enum State {
+    Main; // メイン
+    GameoverInt; // ゲームオーバー・初期化
+    GameoverMain; // ゲームオーバー・メイン
+}
+
+/**
  * メインゲームState
  **/
 class PlayState extends FlxState {
+
+    // ■定数
+    private static inline var LIVES_START = 3;
 
     // ■ゲームオブジェクト
     // プレイヤー
@@ -38,6 +50,8 @@ class PlayState extends FlxState {
     // テキスト
     private var _textShot:FlxText;
     private var _textShield:FlxText;
+    private var _textLevel:FlxText;
+    private var _textLife:FlxText;
 
     // デバッグ用
     private var _nShot:Int = 0;
@@ -49,6 +63,7 @@ class PlayState extends FlxState {
     private var _lives:Int = 3; // 残機
     private var _level:Int = 1; // 現在のレベル
     private var _score:Int = 0; // スコア
+    private var _state:State; // 状態
 
 
     /**
@@ -108,10 +123,8 @@ class PlayState extends FlxState {
         var w4 = FlxG.width/4;
         var s = 4;
         var xList = [-s+w4, -s+w4, FlxG.width-w4, w4];
-//        var yList = [-s, -s, 0, FlxG.height];
         var yList = [-s, -s, 0, FlxG.height-24];
         var wList = [s, FlxG.width+s, s, FlxG.width-w4*2];
-//        var hList = [FlxG.height+s, s, FlxG.height, s];
         var hList = [FlxG.height+s, s, FlxG.height, 24];
         for(i in 0...4) {
             var w:FlxSprite = new FlxSprite(xList[i], yList[i]);
@@ -126,8 +139,12 @@ class PlayState extends FlxState {
         add(_player.getPowerText());
         _textShot = new FlxText(96, FlxG.height-12, 64);
         _textShield = new FlxText(160, FlxG.height-12, 64);
+        _textLevel = new FlxText(4, 4, 64);
+        _textLife = new FlxText(4, 4+12, 64);
         add(_textShot);
         add(_textShield);
+        add(_textLevel);
+        add(_textLife);
 
         // 各種変数初期化
         _timer = 0;
@@ -171,6 +188,11 @@ class PlayState extends FlxState {
         _setTextColor(_textShot, _player.getPowerShotRatio());
         _textShield.text = "Shield: "+_player.getPowerShieldRatio() + "%";
         _setTextColor(_textShield, _player.getPowerShieldRatio());
+        _textLevel.text = "Level: " + _level;
+        _textLife.text = "Lives: " + _lives;
+        if(_lives == 0) {
+            _textLife.color = FlxColor.RED;
+        }
     }
 
     /**
@@ -213,7 +235,15 @@ class PlayState extends FlxState {
         if(_player.isInvisibled() == false) {
 
             // 死亡処理
-            _player.init();
+            _lives--;
+            if(_lives < 0) {
+                _lives = 0;
+            }
+            else {
+                // 復活
+                _player.init();
+            }
+
         }
     }
 

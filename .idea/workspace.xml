@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/source/PlayState.hx" description="_shots = new FlxTypedGroup&lt;Shot&gt;(32);" line="241" />
+    <bookmark url="file://$PROJECT_DIR$/source/PlayState.hx" description="_shots = new FlxTypedGroup&lt;Shot&gt;(32);" line="271" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b23be74e-fb6e-4718-a6cc-7be1cd1893b8" name="Default" comment="" />
@@ -62,8 +62,8 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties converted="true" />
     <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -71,11 +71,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PlayState.hx" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="PlayState.hx" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/PlayState.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39716312" vertical-offset="3302" max-vertical-offset="4233">
-              <caret line="214" column="18" selection-start-line="214" selection-start-column="18" selection-end-line="214" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3791" max-vertical-offset="4743">
+              <caret line="192" column="24" selection-start-line="192" selection-start-column="24" selection-end-line="192" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -124,7 +124,7 @@
       <file leaf-file-name="Horming.hx" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/Horming.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="2754">
+            <state vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="2754">
               <caret line="41" column="23" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="23" />
               <folding />
             </state>
@@ -141,11 +141,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.hx" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Player.hx" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/source/Player.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3152" max-vertical-offset="6834">
-              <caret line="204" column="29" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.68321514" vertical-offset="2975" max-vertical-offset="6868">
+              <caret line="209" column="25" selection-start-line="209" selection-start-column="25" selection-end-line="209" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -185,8 +185,8 @@
         <option value="$PROJECT_DIR$/source/Shield.hx" />
         <option value="$PROJECT_DIR$/source/Boss.hx" />
         <option value="$PROJECT_DIR$/source/Horming.hx" />
-        <option value="$PROJECT_DIR$/source/Player.hx" />
         <option value="$PROJECT_DIR$/source/PlayState.hx" />
+        <option value="$PROJECT_DIR$/source/Player.hx" />
       </list>
     </option>
   </component>
@@ -363,8 +363,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -403,6 +401,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -425,7 +425,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="LayoutCode.rearrangeEntriesHaxe" value="false" />
     <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="Play&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Player&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;PlaySta&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Shi&#9;null&#9;null&#10;Horming&#9;null&#9;null&#10;FlxPath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxPath.hx&#10;FlxMath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxMath.hx&#10;FlxSpri&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxSpriteUtil.hx&#10;Horm&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Horming.hx&#10;&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shield.hx&#10;FlxAngle&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxAngle.hx&#10;Enemy&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Enemy.hx&#10;Bull&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Bullet.hx&#10;Shot&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shot.hx&#10;PlayStat&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx" />
+    <property name="SearchEverywhereHistoryKey" value="Play&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;Plays&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Player&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;PlaySta&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Shi&#9;null&#9;null&#10;Horming&#9;null&#9;null&#10;FlxPath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxPath.hx&#10;FlxMath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxMath.hx&#10;FlxSpri&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxSpriteUtil.hx&#10;Horm&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Horming.hx&#10;&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shield.hx&#10;FlxAngle&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxAngle.hx&#10;Enemy&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Enemy.hx&#10;Bull&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Bullet.hx&#10;Shot&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shot.hx&#10;PlayStat&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx" />
   </component>
   <component name="RunManager" selected="Haxe Application.Main">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -457,19 +457,6 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method />
-    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -498,6 +485,19 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -511,18 +511,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="HaxeApplicationRunConfiguration" factoryName="Haxe Application">
-      <module name="" />
-      <option name="customExecutable" value="false" />
-      <option name="customExecutablePath" value="" />
-      <option name="customFileToLaunch" value="false" />
-      <option name="customFileToLaunchPath" value="" />
-      <option name="name" value="Haxe Application" />
-      <option name="saveOutputToFile" value="false" />
-      <option name="showConsoleOnStdErr" value="false" />
-      <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -544,6 +532,18 @@
       </option>
       <envs />
       <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="HaxeApplicationRunConfiguration" factoryName="Haxe Application">
+      <module name="" />
+      <option name="customExecutable" value="false" />
+      <option name="customExecutablePath" value="" />
+      <option name="customFileToLaunch" value="false" />
+      <option name="customFileToLaunchPath" value="" />
+      <option name="name" value="Haxe Application" />
+      <option name="saveOutputToFile" value="false" />
+      <option name="showConsoleOnStdErr" value="false" />
+      <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -659,20 +659,19 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32837528" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980132" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24972914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3721925" sideWeight="0.4996717" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3991276" sideWeight="0.5003283" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21227081" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31464532" sideWeight="0.5" order="12" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31350115" sideWeight="0.5" order="12" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33752862" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496474" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299025" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1423221" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3340961" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33295193" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -680,6 +679,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980132" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1086,18 +1086,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/Player.hx">
+    <entry file="file://$PROJECT_DIR$/source/PlayState.hx">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3152" max-vertical-offset="6834">
-          <caret line="204" column="29" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3791" max-vertical-offset="4743">
+          <caret line="192" column="24" selection-start-line="192" selection-start-column="24" selection-end-line="192" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/PlayState.hx">
+    <entry file="file://$PROJECT_DIR$/source/Player.hx">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39716312" vertical-offset="3302" max-vertical-offset="4233">
-          <caret line="214" column="18" selection-start-line="214" selection-start-column="18" selection-end-line="214" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.68321514" vertical-offset="2975" max-vertical-offset="6868">
+          <caret line="209" column="25" selection-start-line="209" selection-start-column="25" selection-end-line="209" selection-end-column="25" />
           <folding />
         </state>
       </provider>
