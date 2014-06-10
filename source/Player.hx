@@ -210,6 +210,12 @@ class Player extends FlxSprite {
         _textPower.kill();
     }
 
+    public function vanish():Void {
+        kill();
+        _shield.kill();
+        _textPower.kill();
+    }
+
     /**
      * 更新・出現
      **/

@@ -1,5 +1,7 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.system.ui.FlxSystemButton;
 import flixel.util.FlxColor;
 import flixel.system.debug.FlxDebugger;
@@ -18,6 +20,7 @@ import flixel.util.FlxMath;
  * 状態
  **/
 private enum State {
+    //Init; // 初期化
     Main; // メイン
     Damage; // 被弾
     GameoverInt; // ゲームオーバー・初期化
@@ -34,6 +37,7 @@ class PlayState extends FlxState {
     private static inline var LIVES_START = 3;
     // ダメージタイマー
     private static inline var TIMER_DAMAGE = 30;
+    private static inline var TIMER_GAMEOVER_INIT = 30;
 
     // ■ゲームオブジェクト
     // プレイヤー
@@ -56,6 +60,7 @@ class PlayState extends FlxState {
     private var _textShield:FlxText;
     private var _textLevel:FlxText;
     private var _textLife:FlxText;
+    private var _textMessage:FlxText;
 
     // デバッグ用
     private var _nShot:Int = 0;
@@ -65,7 +70,7 @@ class PlayState extends FlxState {
     // ■ゲーム変数
     private var _timer:Int; // 汎用タイマー
     private var _lives:Int = 3; // 残機
-    private var _level:Int = 1; // 現在のレベル
+    private var _level:Int = 0; // 現在のレベル
     private var _score:Int = 0; // スコア
     private var _state:State = State.Main; // 状態
 
@@ -145,13 +150,20 @@ class PlayState extends FlxState {
         _textShield = new FlxText(160, FlxG.height-12, 64);
         _textLevel = new FlxText(4, 4, 64);
         _textLife = new FlxText(4, 4+12, 64);
+        _textMessage = new FlxText(0, FlxG.height/2, FlxG.width, 8*2);
+        _textMessage.alignment = "center";
+        _textMessage.visible = false;
         add(_textShot);
         add(_textShield);
         add(_textLevel);
         add(_textLife);
+        add(_textMessage);
 
         // 各種変数初期化
         _timer = 0;
+
+        // レベル開始
+        _nextLevel();
 
         // デバッグ機能
         FlxG.debugger.toggleKeys = ["ALT"];
@@ -174,6 +186,17 @@ class PlayState extends FlxState {
     override public function destroy():Void {
         super.destroy();
 
+    }
+
+    private function _nextLevel():Void {
+        _level++;
+        _textMessage.visible = true;
+        _textMessage.x = -200;
+        _textMessage.text = "LEVEL: " + _level;
+        FlxTween.tween(_textMessage, {x:0}, 1, {ease:FlxEase.expoOut, complete:_hideMessage});
+    }
+    private function _hideMessage(tween:FlxTween):Void {
+        FlxTween.tween(_textMessage, { x: FlxG.width }, 1, { ease: FlxEase.expoIn });
     }
 
     private function _setTextColor(text:FlxText, val:Int):Void {
@@ -227,7 +250,6 @@ class PlayState extends FlxState {
         _enemys.active = b;
         _boss.active = b;
         _bullets.active = b;
-
     }
 
     /**
@@ -238,16 +260,20 @@ class PlayState extends FlxState {
         _updatePre();
 
         switch(_state) {
-            case State.Main:
-                _updateMain();
-            case State.Damage:
-                _updateDamage();
-            case State.GameoverInt:
-                // TODO:
-            case State.GameoverMain:
-                // TODO:
+        case State.Main:
+            _updateMain();
+        case State.Damage:
+            _updateDamage();
+        case State.GameoverInt:
+            _timer--;
+            if(_timer < 1) {
+                _state = State.GameoverMain;
+            }
+        case State.GameoverMain:
+            if(FlxG.keys.anyJustPressed(["SPACE", "Z"])) {
+                FlxG.resetState();
+            }
         }
-
     }
 
 
@@ -285,20 +311,24 @@ class PlayState extends FlxState {
             // 死亡処理
             _lives--;
             if(_lives < 0) {
+                _player.vanish();
                 _lives = 0;
+                _state = State.GameoverInt;
+                _timer = TIMER_GAMEOVER_INIT;
             }
             else {
                 // 復活
                 _player.init();
-                // ダメージ状態へ
-                FlxG.camera.flash(0xffFFFFFF, 0.3);
-                FlxG.camera.shake(0.02, 0.35);
 
+                // ダメージ状態へ
                 _state = State.Damage;
                 _timer = TIMER_DAMAGE;
                 _setActiveAll(false); // すべてのオブジェクトの動きを止める
             }
 
+            // ダメージ演出
+            FlxG.camera.flash(0xffFFFFFF, 0.3);
+            FlxG.camera.shake(0.02, 0.35);
         }
     }
 
