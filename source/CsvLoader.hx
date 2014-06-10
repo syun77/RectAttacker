@@ -84,6 +84,9 @@ class CsvLoader {
      * @return 値
      **/
     public function getString(id:Int, key:String):String {
+        if(_datas.exists(id) == false) {
+            throw "Error: Not found id = " + id;
+        }
         var data:Map<String, String> = _datas.get(id);
         if(data.exists(key) == false) {
             throw "Error: Not found key = " + key;

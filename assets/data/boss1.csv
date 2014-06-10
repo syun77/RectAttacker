@@ -1,6 +1,6 @@
 id,cmd,eid,dir,speed,rnd,val
 int,str,int,int,int,int,int
-1,time,,,,,780
+1,time,,,,,1
 30,e,1,0,100,360,
 40,e,1,0,100,360,
 50,e,1,0,100,360,

@@ -159,6 +159,8 @@ class PlayState extends FlxState {
         _csvBoss1.load("assets/data/boss1.csv");
         _csvBoss2 = new CsvLoader();
         _csvBoss2.load("assets/data/boss2.csv");
+        _csvBoss3 = new CsvLoader();
+        _csvBoss3.load("assets/data/boss3.csv");
 
         // テキスト生成
         add(_player.getPowerText());
@@ -216,6 +218,16 @@ class PlayState extends FlxState {
         _textMessage.x = -200;
         _textMessage.text = "LEVEL: " + _level;
         FlxTween.tween(_textMessage, {x:0}, 1, {ease:FlxEase.expoOut, complete:_hideMessage});
+
+        // ボス出現
+        _boss.revive();
+        _boss.x = FlxG.width/2;
+        _boss.y = 32;
+        switch(_level%3 - 1) {
+            case 0: _boss.init(_level, _csvBoss1);
+            case 1: _boss.init(_level, _csvBoss2);
+            case 2: _boss.init(_level, _csvBoss3);
+        }
     }
     private function _hideMessage(tween:FlxTween):Void {
         FlxTween.tween(_textMessage, { x: FlxG.width }, 1, { ease: FlxEase.expoIn, complete:_hideMessageEnd });
@@ -308,14 +320,6 @@ class PlayState extends FlxState {
     private function _updateMain():Void {
 
         _timer++;
-        if(_timer%60 == 0 && _boss.exists == false) {
-            _boss.revive();
-            _boss.x = FlxG.width/2;
-            _boss.y = 32;
-//            _boss.init(1, _csvBoss1);
-            _boss.init(1, _csvBoss2);
-        }
-
         // 当たり判定
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);

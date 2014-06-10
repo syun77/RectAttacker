@@ -1,4 +1,5 @@
 package ;
+import flixel.util.FlxRandom;
 import flixel.FlxG;
 import flixel.util.FlxAngle;
 import flixel.group.FlxTypedGroup;
@@ -30,6 +31,7 @@ class Enemy extends FlxSprite {
     private var _hp:Int = 0;
     private var _val:Float = 0;
 
+    // zaco
     private function _update001():Void {
         _decay(0.95);
         switch(_state) {
@@ -54,6 +56,8 @@ class Enemy extends FlxSprite {
                 trace("Warning: not expect.");
         }
     }
+
+    // aim
     private function _update002():Void {
         _decay(0.95);
         switch(_state) {
@@ -88,6 +92,8 @@ class Enemy extends FlxSprite {
                 trace("Warning: not expect.");
         }
     }
+
+    // side
     private function _update003():Void {
         switch(_state) {
             case State.Init:
@@ -115,6 +121,8 @@ class Enemy extends FlxSprite {
                 trace("Warning: not expect.");
         }
     }
+
+    // aim2
     private function _update004():Void {
         _decay(0.95);
         switch(_state) {
@@ -137,6 +145,8 @@ class Enemy extends FlxSprite {
                 trace("Warning: not expect.");
         }
     }
+
+    // winder
     private function _update005():Void {
         _decay(0.95);
         switch(_state) {
@@ -162,6 +172,8 @@ class Enemy extends FlxSprite {
                 trace("Warning: not expect.");
         }
     }
+
+    // whip
     private function _update006():Void {
         switch(_state) {
             case State.Init:
@@ -189,6 +201,178 @@ class Enemy extends FlxSprite {
         }
     }
 
+    // invader
+    private function _update007():Void {
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _decay(0.95);
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 80;
+                    velocity.set(100, 0);
+                }
+            case State.Main:
+                if(x <= 80) {
+                    x = 80;
+                    velocity.x *= -1;
+                }
+                if(x >= 240) {
+                    x = 240;
+                    velocity.x *= -1;
+                }
+                _timer++;
+                if(_timer%110== 0) {
+                    var speed = 100 + 10 * level;
+                    for(i in 0...3) {
+                        bulletOffset(0, -8*i, 270, speed);
+                    }
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+
+    // rotate
+    private function _update008():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+                if(_timer%4 == 0) {
+                    var rad = _timer * FlxAngle.TO_RAD * 4;
+                    var dir = _timer * 4;
+                    var speed = 120 + level * 15;
+                    for(i in 0...3) {
+                        var ofsX = 8 * i * Math.cos(rad);
+                        var ofsY = 8 * i * -Math.sin(rad);
+                        bulletOffset(ofsX, ofsY, dir, speed);
+                    }
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+
+    // none
+    private function _update009():Void {
+        switch(_state) {
+            case State.Init:
+                _timer = 30;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+
+    // 5way
+    private function _update010():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+                var speed = 100 + level * 15;
+                var duration = 80 - level * 1;
+                duration = if(duration < 45) 45 else duration;
+                switch(_timer%90) {
+                    case 1:
+                        _val = getAim();
+                    case 2,6,10:
+                        bulletNWay(_val, 5, duration, speed);
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+
+    // 4way
+    private function _update011():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+                var speed = 100 + level * 15;
+                var duration = 80 - level * 1;
+                duration = if(duration < 45) 45 else duration;
+                switch(_timer%90) {
+                case 1:
+                    _val = getAim();
+                case 2,6,10:
+                    bulletNWay(_val, 4, duration, speed);
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+
+    // gravity
+    private function _update012():Void {
+        _decay(0.95);
+        switch(_state) {
+            case State.Init:
+                _timer = 60;
+                _state = State.Appear;
+            case State.Appear:
+                _timer--;
+                if(_timer < 1 ) {
+                    _state = State.Main;
+                    _timer = 0;
+                }
+            case State.Main:
+                _timer++;
+                switch(_timer%90) {
+                    case 1:
+                        _val = FlxRandom.floatRanged(45, 135);
+                    case 2,6,10:
+                        var gravity = 100 + 10 * level;
+                        bulletOffset(0, 0, _val, 100, 0, gravity);
+                }
+            default:
+                trace("Warning: not expect.");
+        }
+    }
+
+    /**
+     * コンストラクタ
+     **/
     public function new() {
         super(-100, -100);
         makeGraphic(8, 8, FlxColor.GREEN);
@@ -253,6 +437,12 @@ class Enemy extends FlxSprite {
             case 4: _update004();
             case 5: _update005();
             case 6: _update006();
+            case 7: _update007();
+            case 8: _update008();
+            case 9: _update009();
+            case 10: _update010();
+            case 11: _update011();
+            case 12: _update012();
         }
 
         if(isOnScreen()==false) {
@@ -266,22 +456,27 @@ class Enemy extends FlxSprite {
         }
     }
 
-    /**
-     * 弾を撃つ
-     * @param dir 方向
-     * @param speed 速さ
-     **/
-    public function bullet(dir:Float, speed:Float):Void {
+    public function bulletOffset(ofsX:Float, ofsY:Float, dir:Float, speed:Float, ax:Float=0, ay:Float=0) {
         var rad:Float = FlxAngle.TO_RAD * dir;
         var dx:Float = speed * Math.cos(rad);
         var dy:Float = speed * -Math.sin(rad);
         var b:Bullet = s_bullets.getFirstDead();
         if(b != null) {
             b.revive();
-            b.x = x + width/2 - b.width/2;
-            b.y = y + width/2 - b.width/2;
+            b.x = ofsX + x + width/2 - b.width/2;
+            b.y = ofsY + y + width/2 - b.width/2;
             b.velocity.set(dx, dy);
+            b.acceleration.set(ax, ay);
         }
+    }
+    
+    /**
+     * 弾を撃つ
+     * @param dir 方向
+     * @param speed 速さ
+     **/
+    public function bullet(dir:Float, speed:Float):Void {
+        bulletOffset(0, 0, dir, speed);
     }
 
     /**
