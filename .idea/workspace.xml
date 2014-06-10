@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/source/PlayState.hx" description="_shots = new FlxTypedGroup&lt;Shot&gt;(32);" line="373" />
+    <bookmark url="file://$PROJECT_DIR$/source/PlayState.hx" description="_shots = new FlxTypedGroup&lt;Shot&gt;(32);" line="383" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b23be74e-fb6e-4718-a6cc-7be1cd1893b8" name="Default" comment="" />
@@ -74,58 +74,48 @@
       <file leaf-file-name="PlayState.hx" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/PlayState.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4369" max-vertical-offset="6477">
-              <caret line="284" column="12" selection-start-line="284" selection-start-column="12" selection-end-line="284" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2146" max-vertical-offset="6647">
+              <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlxTween.hx" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/tweens/FlxTween.hx">
+      <file leaf-file-name="Enemy.hx" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/source/Enemy.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5316" max-vertical-offset="9452">
-              <caret line="329" column="15" selection-start-line="329" selection-start-column="15" selection-end-line="329" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.3817967" vertical-offset="255" max-vertical-offset="1955">
+              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FlxText.hx" pinned="false" current="false" current-in-tab="false">
-        <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/text/FlxText.hx">
+      <file leaf-file-name="CsvLoader.hx" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/CsvLoader.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2358" max-vertical-offset="17255">
-              <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1666">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Shield.hx" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/Shield.hx">
+      <file leaf-file-name="Boss.hx" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/source/Boss.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-              <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1904">
+              <caret line="48" column="45" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.hx" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Player.hx" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/source/Player.hx">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7434988" vertical-offset="2907" max-vertical-offset="7004">
-              <caret line="208" column="26" selection-start-line="208" selection-start-column="26" selection-end-line="208" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Horming.hx" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/source/Horming.hx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2771">
-              <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1241" max-vertical-offset="7004">
+              <caret line="84" column="16" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -150,16 +140,17 @@
         <option value="$PROJECT_DIR$/source/Main.hx" />
         <option value="$PROJECT_DIR$/source/Shot.hx" />
         <option value="/usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxSprite.hx" />
-        <option value="$PROJECT_DIR$/source/Enemy.hx" />
         <option value="$PROJECT_DIR$/source/Bullet.hx" />
         <option value="$PROJECT_DIR$/source/Shield.hx" />
-        <option value="$PROJECT_DIR$/source/Boss.hx" />
         <option value="/usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxCamera.hx" />
         <option value="/usr/lib/haxe/lib/flixel/3,3,4/flixel/tweens/FlxTween.hx" />
         <option value="/usr/lib/haxe/lib/flixel/3,3,4/flixel/tweens/FlxEase.hx" />
         <option value="$PROJECT_DIR$/source/Horming.hx" />
-        <option value="$PROJECT_DIR$/source/PlayState.hx" />
         <option value="$PROJECT_DIR$/source/Player.hx" />
+        <option value="$PROJECT_DIR$/source/Boss.hx" />
+        <option value="$PROJECT_DIR$/source/CsvLoader.hx" />
+        <option value="$PROJECT_DIR$/source/PlayState.hx" />
+        <option value="$PROJECT_DIR$/source/Enemy.hx" />
       </list>
     </option>
   </component>
@@ -438,7 +429,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="LayoutCode.rearrangeEntriesHaxe" value="false" />
     <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="Play&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;Horm&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Horming.hx&#10;Player&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;hormin&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Horming.hx&#10;FlxCamera&#9;null&#9;null&#10;FlxType&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/group/FlxTypedGroup.hx&#10;FlxBasic&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxBasic.hx&#10;FlxObject&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxObject.hx&#10;FlxSprite&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxSprite.hx&#10;PlayState&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Plays&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;PlaySta&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Shi&#9;null&#9;null&#10;Horming&#9;null&#9;null&#10;FlxPath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxPath.hx&#10;FlxMath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxMath.hx&#10;FlxSpri&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxSpriteUtil.hx&#10;&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shield.hx&#10;FlxAngle&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxAngle.hx&#10;Enemy&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Enemy.hx&#10;Bull&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Bullet.hx&#10;Shot&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shot.hx&#10;PlayStat&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx" />
+    <property name="SearchEverywhereHistoryKey" value="Enemy&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Enemy.hx&#10;Play&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;Horm&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Horming.hx&#10;Player&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Player.hx&#10;hormin&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Horming.hx&#10;FlxCamera&#9;null&#9;null&#10;FlxType&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/group/FlxTypedGroup.hx&#10;FlxBasic&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxBasic.hx&#10;FlxObject&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxObject.hx&#10;FlxSprite&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxSprite.hx&#10;PlayState&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Plays&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;PlaySta&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx&#10;Shi&#9;null&#9;null&#10;Horming&#9;null&#9;null&#10;FlxPath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxPath.hx&#10;FlxMath&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxMath.hx&#10;FlxSpri&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxSpriteUtil.hx&#10;&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shield.hx&#10;FlxAngle&#9;FILE&#9;file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxAngle.hx&#10;Bull&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Bullet.hx&#10;Shot&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/Shot.hx&#10;PlayStat&#9;FILE&#9;file:///Users/syun/Desktop/MyProject/source/PlayState.hx" />
   </component>
   <component name="RunManager" selected="Haxe Application.Main">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -728,29 +719,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/effects/particles/FlxParticle.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22491731" vertical-offset="153" max-vertical-offset="3451">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxRandom.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.0961967" vertical-offset="1554" max-vertical-offset="8619">
-          <caret line="412" column="7" selection-start-line="412" selection-start-column="4" selection-end-line="412" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/interfaces/IFlxDestroyable.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09371555" vertical-offset="0" max-vertical-offset="907">
-          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/group/FlxGroup.hx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24720357" vertical-offset="0" max-vertical-offset="1190">
@@ -853,14 +821,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/AssetPaths.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="907">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/group/FlxTypedSpriteGroup.hx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42233858" vertical-offset="15245" max-vertical-offset="17289">
@@ -938,14 +898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/Enemy.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41975307" vertical-offset="17" max-vertical-offset="1938">
-          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/util/FlxSpriteUtil.hx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4896" max-vertical-offset="11271">
@@ -984,14 +936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/Boss.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34160757" vertical-offset="578" max-vertical-offset="1870">
-          <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/source/Bullet.hx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19621749" vertical-offset="106" max-vertical-offset="952">
@@ -1016,14 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxSprite.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5102041" vertical-offset="4420" max-vertical-offset="26962">
-          <caret line="285" column="8" selection-start-line="285" selection-start-column="8" selection-end-line="285" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxBasic.hx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44208038" vertical-offset="119" max-vertical-offset="2329">
@@ -1036,14 +972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5510204" vertical-offset="1003" max-vertical-offset="12750">
           <caret line="86" column="58" selection-start-line="86" selection-start-column="58" selection-end-line="86" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/source/Shield.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -1064,22 +992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/text/FlxText.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2358" max-vertical-offset="17255">
-          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/tweens/FlxTween.hx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5316" max-vertical-offset="9452">
-          <caret line="329" column="15" selection-start-line="329" selection-start-column="15" selection-end-line="329" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/tweens/FlxEase.hx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.58274233" vertical-offset="1275" max-vertical-offset="3672">
@@ -1096,26 +1008,106 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/source/Shield.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20094563" vertical-offset="0" max-vertical-offset="846">
+          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/text/FlxText.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.30012" vertical-offset="2358" max-vertical-offset="17255">
+          <caret line="26" column="6" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/tweens/FlxTween.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.332533" vertical-offset="5316" max-vertical-offset="9452">
+          <caret line="329" column="15" selection-start-line="329" selection-start-column="15" selection-end-line="329" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/source/Horming.hx">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2771">
+        <state vertical-scroll-proportion="0.8439716" vertical-offset="0" max-vertical-offset="2771">
           <caret line="42" column="22" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/source/PlayState.hx">
+    <entry file="file://$PROJECT_DIR$/source/Boss.hx">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4369" max-vertical-offset="6477">
-          <caret line="284" column="12" selection-start-line="284" selection-start-column="12" selection-end-line="284" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1904">
+          <caret line="48" column="45" selection-start-line="48" selection-start-column="45" selection-end-line="48" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/AssetPaths.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.060283687" vertical-offset="0" max-vertical-offset="846">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/source/Player.hx">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7434988" vertical-offset="2907" max-vertical-offset="7004">
-          <caret line="208" column="26" selection-start-line="208" selection-start-column="26" selection-end-line="208" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1241" max-vertical-offset="7004">
+          <caret line="84" column="16" selection-start-line="84" selection-start-column="16" selection-end-line="84" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/system/frontEnds/BitmapFrontEnd.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3345153" vertical-offset="3832" max-vertical-offset="7395">
+          <caret line="159" column="32" selection-start-line="159" selection-start-column="32" selection-end-line="159" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/FlxSprite.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45498198" vertical-offset="8563" max-vertical-offset="26962">
+          <caret line="526" column="42" selection-start-line="526" selection-start-column="42" selection-end-line="526" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/haxe/lib/flixel/3,3,4/flixel/system/FlxAssets.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.964539" vertical-offset="2180" max-vertical-offset="4165">
+          <caret line="226" column="36" selection-start-line="226" selection-start-column="36" selection-end-line="226" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/CsvLoader.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1666">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/PlayState.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2146" max-vertical-offset="6647">
+          <caret line="153" column="29" selection-start-line="153" selection-start-column="29" selection-end-line="153" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/source/Enemy.hx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3817967" vertical-offset="255" max-vertical-offset="1955">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
           <folding />
         </state>
       </provider>

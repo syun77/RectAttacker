@@ -10,6 +10,7 @@ import flixel.FlxSprite;
 class Enemy extends FlxSprite {
     static public var target:Player;
     static public var s_bullets:FlxTypedGroup<Bullet>;
+    static public var csv:CsvLoader;
 
     private var _id:Int = 0;
     private var _timer:Int = 0;
@@ -31,7 +32,7 @@ class Enemy extends FlxSprite {
      **/
     public function init(id:Int):Void {
         _id = id;
-        _hp = 30;
+        _hp = csv.getInt(id, "hp");
         _hpmax = _hp;
         /*
         var size = FlxRandom.intRanged(8, 32);

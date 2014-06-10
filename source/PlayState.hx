@@ -55,6 +55,9 @@ class PlayState extends FlxState {
     // 大人カベ
     private var _walls:FlxGroup;
 
+    // CSV
+    private var _csvEnemy:CsvLoader;
+
     // テキスト
     private var _textShot:FlxText;
     private var _textShield:FlxText;
@@ -144,6 +147,11 @@ class PlayState extends FlxState {
             _walls.add(w);
         }
         add(_walls);
+
+        // CSV読み込み
+        _csvEnemy = new CsvLoader();
+        _csvEnemy.load("assets/data/enemy.csv");
+        Enemy.csv = _csvEnemy;
 
         // テキスト生成
         add(_player.getPowerText());
@@ -349,23 +357,25 @@ class PlayState extends FlxState {
         }
     }
 
+    private static inline var POWER_SHOT = 1; // 通常ショットの威力
+    private static inline var POWER_HORMING = 10; // ホーミング弾の威力
     private function _vsShotEnemy(shot:Shot, enemy:Enemy):Void {
-        enemy.damage(1);
+        enemy.damage(POWER_SHOT);
         shot.kill();
     }
 
     private function _vsHormingEnemy(horming:Horming, enemy:Enemy):Void {
-        enemy.damage(1);
+        enemy.damage(POWER_HORMING);
         horming.vanish();
     }
 
     private function _vsShotBoss(shot:Shot, boss:Boss):Void {
-        boss.damage(1);
+        boss.damage(POWER_SHOT);
         shot.kill();
     }
 
     private function _vsHormingBoss(horming:Horming, boss:Boss):Void {
-        boss.damage(1);
+        boss.damage(POWER_HORMING);
         horming.vanish();
     }
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {

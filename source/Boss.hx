@@ -45,11 +45,13 @@ class Boss extends FlxSprite {
         _id = id;
         _hp = 30;
         _hpmax = _hp;
+        /*
         var size = FlxRandom.intRanged(8, 32);
         makeGraphic(size, size, FlxColor.GREEN);
         // 出現位置調整
         x -= size/2;
         y -= size/2;
+        */
 
         _text.revive();
         _text.x = x + width/2 - _text.width/2;
