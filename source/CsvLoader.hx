@@ -63,6 +63,9 @@ class CsvLoader {
 
     public function getString(id:Int, key:String):String {
         var data:Map<String, String> = _datas.get(id);
+        if(data.exists(key) == false) {
+            throw "Error: Not found key = " + key;
+        }
         return data.get(key);
     }
     public function getInt(id:Int, key:String):Int {
