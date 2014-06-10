@@ -40,6 +40,7 @@ class Horming extends FlxSprite {
     public function new() {
         super(-100, -100);
         makeGraphic(4, 4, FlxColor.CYAN);
+        maxVelocity.set(500, 500);
 
         // 初期状態は無効
         kill();

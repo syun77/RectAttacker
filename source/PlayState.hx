@@ -61,6 +61,7 @@ class PlayState extends FlxState {
     private var _textLevel:FlxText;
     private var _textLife:FlxText;
     private var _textMessage:FlxText;
+    private var _textPressKey:FlxText;
 
     // デバッグ用
     private var _nShot:Int = 0;
@@ -69,7 +70,7 @@ class PlayState extends FlxState {
 
     // ■ゲーム変数
     private var _timer:Int; // 汎用タイマー
-    private var _lives:Int = 3; // 残機
+    private var _lives:Int = 2; // 残機
     private var _level:Int = 0; // 現在のレベル
     private var _score:Int = 0; // スコア
     private var _state:State = State.Main; // 状態
@@ -153,11 +154,16 @@ class PlayState extends FlxState {
         _textMessage = new FlxText(0, FlxG.height/2, FlxG.width, 8*2);
         _textMessage.alignment = "center";
         _textMessage.visible = false;
+        _textPressKey = new FlxText(0, FlxG.height/2 + 32, FlxG.width);
+        _textPressKey.alignment = "center";
+        _textPressKey.text = "press z or space key.";
+        _textPressKey.visible = false;
         add(_textShot);
         add(_textShield);
         add(_textLevel);
         add(_textLife);
         add(_textMessage);
+        add(_textPressKey);
 
         // 各種変数初期化
         _timer = 0;
@@ -196,7 +202,10 @@ class PlayState extends FlxState {
         FlxTween.tween(_textMessage, {x:0}, 1, {ease:FlxEase.expoOut, complete:_hideMessage});
     }
     private function _hideMessage(tween:FlxTween):Void {
-        FlxTween.tween(_textMessage, { x: FlxG.width }, 1, { ease: FlxEase.expoIn });
+        FlxTween.tween(_textMessage, { x: FlxG.width }, 1, { ease: FlxEase.expoIn, complete:_hideMessageEnd });
+    }
+    private function _hideMessageEnd(tween:FlxTween):Void {
+        _textMessage.visible = false;
     }
 
     private function _setTextColor(text:FlxText, val:Int):Void {
@@ -273,6 +282,9 @@ class PlayState extends FlxState {
             if(FlxG.keys.anyJustPressed(["SPACE", "Z"])) {
                 FlxG.resetState();
             }
+            FlxG.collide(_hormings, _enemys, _vsHormingEnemy);
+            FlxG.collide(_shots, _boss, _vsShotBoss);
+            FlxG.collide(_hormings, _boss, _vsHormingBoss);
         }
     }
 
@@ -311,10 +323,15 @@ class PlayState extends FlxState {
             // 死亡処理
             _lives--;
             if(_lives < 0) {
+                // ゲームオーバーへ
                 _player.vanish();
                 _lives = 0;
                 _state = State.GameoverInt;
                 _timer = TIMER_GAMEOVER_INIT;
+                _textMessage.x = 0;
+                _textMessage.text = "GameOver";
+                _textMessage.visible = true;
+                _textPressKey.visible = true;
             }
             else {
                 // 復活

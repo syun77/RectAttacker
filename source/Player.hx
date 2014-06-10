@@ -206,6 +206,8 @@ class Player extends FlxSprite {
         _timer = TIMER_APPEAR;
         _tInvisibled = TIMER_INVISIBLED;
         immovable = true;
+        velocity.set(0, 0);
+        _shield.velocity.set(0, 0);
         _shield.kill();
         _textPower.kill();
     }
