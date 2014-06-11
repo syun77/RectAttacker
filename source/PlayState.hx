@@ -73,6 +73,7 @@ class PlayState extends FlxState {
     private var _emitterEnemy:EmitterEnemy;
     private var _emitterBoss:EmitterBoss;
     private var _emitterBullet:EmitterBullet;
+    private var _emitterPlayer:EmitterPlayer;
 
     // デバッグ用
     private var _nShot:Int = 0;
@@ -191,9 +192,11 @@ class PlayState extends FlxState {
         _emitterEnemy = new EmitterEnemy();
         _emitterBoss = new EmitterBoss();
         _emitterBullet = new EmitterBullet();
+        _emitterPlayer = new EmitterPlayer();
         add(_emitterEnemy);
         add(_emitterBoss);
         add(_emitterBullet);
+        add(_emitterPlayer);
         Enemy.s_emitter = _emitterEnemy;
         Boss.s_emitter = _emitterBoss;
         Bullet.s_emitter = _emitterBullet;
@@ -396,6 +399,9 @@ class PlayState extends FlxState {
         if(_player.isInvisibled() == false) {
 
             // 死亡処理
+            // 破壊エフェクト再生
+            _emitterPlayer.explode(_player.x+_player.width/2, _player.y+_player.height/2);
+
             _lives--;
             if(_lives < 0) {
                 // ゲームオーバーへ
