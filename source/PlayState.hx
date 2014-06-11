@@ -329,10 +329,11 @@ class PlayState extends FlxState {
         _nBullet = _bullets.countLiving();
         super.update();
 
+#if !FLX_NO_DEBUG
         if(FlxG.keys.justPressed.ESCAPE) {
             throw "Terminate.";
         }
-
+#end
 
     }
 
