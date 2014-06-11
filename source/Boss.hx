@@ -23,7 +23,7 @@ class Boss extends FlxSprite {
 
     public function new() {
         super(-100, -100);
-        makeGraphic(16, 16, FlxColor.GREEN);
+        makeGraphic(24, 24, FlxColor.LIME);
         immovable = true; // 反動で動かないようにする
 
         _text = new FlxText(-100, -100, 64);
@@ -48,17 +48,10 @@ class Boss extends FlxSprite {
         _id = id;
         _hp = 45 + id * 5;
         _hpmax = _hp;
-        /*
-        var size = FlxRandom.intRanged(8, 32);
-        makeGraphic(size, size, FlxColor.GREEN);
-        // 出現位置調整
-        x -= size/2;
-        y -= size/2;
-        */
-
         _text.revive();
         _text.x = x + width/2 - _text.width/2;
-        _text.y = y + height/2 - _text.height/2;
+//        _text.y = y + height/2 - _text.height/2;
+        _text.y = y - 16;
         _text.text = "" + _hp;
 
         _csv = csv;

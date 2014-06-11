@@ -20,7 +20,7 @@ import flixel.util.FlxMath;
  * 状態
  **/
 private enum State {
-    //Init; // 初期化
+    Init; // 初期化
     Main; // メイン
     Damage; // 被弾
     GameoverInt; // ゲームオーバー・初期化
@@ -212,6 +212,8 @@ class PlayState extends FlxState {
     }
 
     private function _nextLevel():Void {
+        _state = State.Init;
+
         _level++;
         Enemy.level = _level;
         _textMessage.visible = true;
@@ -221,15 +223,17 @@ class PlayState extends FlxState {
 
         // ボス出現
         _boss.revive();
-        _boss.x = FlxG.width/2;
+        _boss.x = FlxG.width/2 - _boss.width/2;
         _boss.y = 32;
-        switch(_level%3 - 1) {
+        switch((_level-1)%3) {
             case 0: _boss.init(_level, _csvBoss1);
             case 1: _boss.init(_level, _csvBoss2);
             case 2: _boss.init(_level, _csvBoss3);
+            default: throw "Error: Invalid level = " + _level;
         }
     }
     private function _hideMessage(tween:FlxTween):Void {
+        _state = State.Main;
         FlxTween.tween(_textMessage, { x: FlxG.width }, 1, { ease: FlxEase.expoIn, complete:_hideMessageEnd });
     }
     private function _hideMessageEnd(tween:FlxTween):Void {
@@ -297,6 +301,8 @@ class PlayState extends FlxState {
         _updatePre();
 
         switch(_state) {
+        case State.Init:
+
         case State.Main:
             _updateMain();
         case State.Damage:
@@ -320,6 +326,13 @@ class PlayState extends FlxState {
     private function _updateMain():Void {
 
         _timer++;
+
+        if(_boss.exists == false) {
+            // ボスが死んだので次のレベルに進む
+            _nextLevel();
+            return;
+        }
+
         // 当たり判定
         FlxG.collide(_player, _bullets, _vsPlayerBullet);
         FlxG.collide(_shots, _enemys, _vsShotEnemy);

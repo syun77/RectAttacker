@@ -74,7 +74,7 @@ class Enemy extends FlxSprite {
             case State.Main:
                 _timer++;
                 if(_timer%5== 0) {
-                    var speed = 150 + level*20;
+                    var speed = 100 + level*10;
                     bullet(_val, speed);
                 }
                 if(_timer > 20+level*3) {
@@ -252,9 +252,11 @@ class Enemy extends FlxSprite {
             case State.Main:
                 _timer++;
                 if(_timer%4 == 0) {
-                    var rad = _timer * FlxAngle.TO_RAD * 4;
-                    var dir = _timer * 4;
-                    var speed = 120 + level * 15;
+                    var duration = 8 - level*0.1;
+                    duration = if(duration < 4) 4 else duration;
+                    var rad = _timer * FlxAngle.TO_RAD * duration;
+                    var dir = _timer * duration;
+                    var speed = 50 + level * 15;
                     for(i in 0...3) {
                         var ofsX = 8 * i * Math.cos(rad);
                         var ofsY = 8 * i * -Math.sin(rad);
