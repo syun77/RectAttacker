@@ -72,6 +72,7 @@ class PlayState extends FlxState {
     // エミッタ
     private var _emitterEnemy:EmitterEnemy;
     private var _emitterBoss:EmitterBoss;
+    private var _emitterBullet:EmitterBullet;
 
     // デバッグ用
     private var _nShot:Int = 0;
@@ -189,10 +190,13 @@ class PlayState extends FlxState {
         // エミッタ
         _emitterEnemy = new EmitterEnemy();
         _emitterBoss = new EmitterBoss();
+        _emitterBullet = new EmitterBullet();
         add(_emitterEnemy);
         add(_emitterBoss);
+        add(_emitterBullet);
         Enemy.s_emitter = _emitterEnemy;
         Boss.s_emitter = _emitterBoss;
+        Bullet.s_emitter = _emitterBullet;
 
         // 各種変数初期化
         _timer = 0;
@@ -223,6 +227,14 @@ class PlayState extends FlxState {
 
     }
 
+    private function _getWaitTime():Float {
+        var tWait:Float = 1 - _level * 0.05;
+        if(tWait < 0.1) {
+            return 0.1;
+        }
+        return tWait;
+    }
+
     private function _nextLevel():Void {
         _state = State.Init;
 
@@ -231,7 +243,7 @@ class PlayState extends FlxState {
         _textMessage.visible = true;
         _textMessage.x = -200;
         _textMessage.text = "LEVEL: " + _level;
-        FlxTween.tween(_textMessage, {x:0}, 1, {ease:FlxEase.expoOut, complete:_hideMessage});
+        FlxTween.tween(_textMessage, {x:0}, _getWaitTime(), {ease:FlxEase.expoOut, complete:_hideMessage});
 
         // ボス出現
         _boss.revive();
@@ -243,13 +255,30 @@ class PlayState extends FlxState {
             case 2: _boss.init(_level, _csvBoss3);
             default: throw "Error: Invalid level = " + _level;
         }
+        _boss.visible = false;
+
+        // 敵とボスの更新を止める
+        _boss.active = false;
+        _enemys.active = false;
+        _player.stopRecover(true);
+        _bullets.active = false;
+        _shots.active = false;
+        _hormings.active = false;
     }
     private function _hideMessage(tween:FlxTween):Void {
         _state = State.Main;
-        FlxTween.tween(_textMessage, { x: FlxG.width }, 1, { ease: FlxEase.expoIn, complete:_hideMessageEnd });
+        FlxTween.tween(_textMessage, { x: FlxG.width }, _getWaitTime(), { ease: FlxEase.expoIn, complete:_hideMessageEnd });
     }
     private function _hideMessageEnd(tween:FlxTween):Void {
         _textMessage.visible = false;
+        // 敵とボス動き出す
+        _boss.active = true;
+        _enemys.active = true;
+        _bullets.active = true;
+        _shots.active = true;
+        _hormings.active = true;
+        _player.stopRecover(false);
+        _boss.visible = true;
     }
 
     private function _setTextColor(text:FlxText, val:Int):Void {
@@ -332,6 +361,7 @@ class PlayState extends FlxState {
             FlxG.collide(_shots, _boss, _vsShotBoss);
             FlxG.collide(_hormings, _boss, _vsHormingBoss);
         }
+        FlxG.collide(_player, _walls);
     }
 
 
@@ -351,7 +381,6 @@ class PlayState extends FlxState {
         FlxG.collide(_hormings, _enemys, _vsHormingEnemy);
         FlxG.collide(_shots, _boss, _vsShotBoss);
         FlxG.collide(_hormings, _boss, _vsHormingBoss);
-        FlxG.collide(_player, _walls);
         FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
     }
     private function _updateDamage():Void {
@@ -363,7 +392,7 @@ class PlayState extends FlxState {
     }
 
     private function _vsPlayerBullet(player:Player, bullet:Bullet):Void {
-        bullet.kill();
+        bullet.vanish();
         if(_player.isInvisibled() == false) {
 
             // 死亡処理
@@ -387,6 +416,12 @@ class PlayState extends FlxState {
                 _state = State.Damage;
                 _timer = TIMER_DAMAGE;
                 _setActiveAll(false); // すべてのオブジェクトの動きを止める
+
+                // 敵弾を全消す
+                _bullets.forEachAlive(
+                function(b:Bullet) {
+                    b.vanish(); // すべて消す
+                });
             }
 
             // ダメージ演出
@@ -417,7 +452,7 @@ class PlayState extends FlxState {
         horming.vanish();
     }
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
-        bullet.kill();
+        bullet.vanish();
         var h:Horming = _hormings.recycle();
         h.init(bullet.x, bullet.y, bullet.velocity);
     }

@@ -166,8 +166,8 @@ class Enemy extends FlxSprite {
                     var rad = _timer * FlxAngle.TO_RAD * 2;
                     var speed = 120 + level * 15;
                     var range = 10 + level * 1;
-                    if(range > 40) { range = 40; }
-                    bullet(270+Math.cos(rad)*10, speed);
+                    if(range > 25) { range = 25; }
+                    bullet(270+Math.cos(rad)*range, speed);
                 }
             default:
                 trace("Warning: not expect.");

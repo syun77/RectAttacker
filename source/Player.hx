@@ -78,6 +78,10 @@ class Player extends FlxSprite {
     // 無敵タイマー
     private var _tInvisibled:Int = TIMER_INVISIBLED;
 
+    // ゲージ回復停止
+    private var _bStopRecover:Bool = false;
+
+    public function stopRecover(b:Bool) _bStopRecover = b;
     /**
      * コンストラクタ
      **/
@@ -362,27 +366,30 @@ class Player extends FlxSprite {
         // テキストを消す
         _textPower.kill();
 
-        // ショット処理
-        if(_isPressdShot()) {
-            _doShot();
-        }
-        else {
-            // ショットを撃たなければシールドが使える
-            if(_isPressShield() && getPowerShieldRatio() > 0) {
-                _doShield();
+        if(_bStopRecover == false) {
+            // ショット処理
+            if(_isPressdShot()) {
+                _doShot();
             }
-        }
+            else {
+                // ショットを撃たなければシールドが使える
+                if(_isPressShield() && getPowerShieldRatio() > 0) {
+                    _doShield();
+                }
+            }
 
-        if(_isPressdShot() == false) {
-            // ショットゲージ回復
-            var diff = POWER_SHOT_MAX - _powerShot;
-            var val = diff * 0.01;
-            val = if(val < POWER_SHOT_INC) POWER_SHOT_INC else val;
-            addPowerShot(cast val);
-        }
-        if(_isPressShield() == false) {
-            // シールドゲージ回復
-            addPowerShield(POWER_SHIELD_INC);
+            if(_isPressdShot() == false) {
+                // ショットゲージ回復
+                var diff = POWER_SHOT_MAX - _powerShot;
+                var val = diff * 0.01;
+                val = if(val < POWER_SHOT_INC) POWER_SHOT_INC else val;
+                addPowerShot(cast val);
+            }
+            if(_isPressShield() == false) {
+                // シールドゲージ回復
+                addPowerShield(POWER_SHIELD_INC);
+            }
+
         }
 
         // テキスト更新

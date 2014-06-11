@@ -9,6 +9,8 @@ import flixel.FlxSprite;
  * 敵弾クラス
  **/
 class Bullet extends FlxSprite {
+    static public var s_emitter:EmitterBullet;
+
     public function new() {
         super();
         loadGraphic("assets/images/bullet.png", true);
@@ -46,5 +48,11 @@ class Bullet extends FlxSprite {
             // 画面外で消える
             kill();
         }
+    }
+
+    public function vanish():Void {
+        s_emitter.explode(x+width/2, y+height/2);
+        s_emitter.update();
+        kill();
     }
 }
