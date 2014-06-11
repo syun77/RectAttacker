@@ -399,7 +399,8 @@ class PlayState extends FlxState {
         FlxG.collide(_hormings, _enemys, _vsHormingEnemy);
         FlxG.collide(_shots, _boss, _vsShotBoss);
         FlxG.collide(_hormings, _boss, _vsHormingBoss);
-        FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
+        FlxG.overlap(_player.getShield(), _bullets, _vsShieldBullet);
+//        FlxG.collide(_player.getShield(), _bullets, _vsShieldBullet);
     }
     private function _updateDamage():Void {
         _timer--;
@@ -474,6 +475,7 @@ class PlayState extends FlxState {
         horming.vanish();
     }
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
+        shield.velocity.set(bullet.velocity.x, bullet.velocity.y);
         bullet.vanish();
         var h:Horming = _hormings.getFirstDead();
         if(h != null) {

@@ -1,5 +1,6 @@
 package ;
 
+import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
@@ -13,6 +14,7 @@ class Shield extends FlxSprite {
     public function new() {
         super(-100, -100);
         makeGraphic(10*3, 4, FlxColor.GOLDEN);
+        height += 20; // 見た目より広くしておく
 
         // 消しておく
         kill();
