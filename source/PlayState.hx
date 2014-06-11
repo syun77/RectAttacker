@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.system.ui.FlxSystemButton;
@@ -38,6 +39,7 @@ class PlayState extends FlxState {
     // ダメージタイマー
     private static inline var TIMER_DAMAGE = 30;
     private static inline var TIMER_GAMEOVER_INIT = 30;
+    private static var s_sndHorming:FlxSound = null;
 
     // ■ゲームオブジェクト
     // プレイヤー
@@ -207,6 +209,9 @@ class PlayState extends FlxState {
         // レベル開始
         _nextLevel();
 
+        FlxG.sound.volume = 1.0;
+        FlxG.sound.playMusic("001");
+
         // デバッグ機能
         FlxG.debugger.toggleKeys = ["ALT"];
         FlxG.watch.add(this, "_state");
@@ -282,6 +287,12 @@ class PlayState extends FlxState {
         _hormings.active = true;
         _player.stopRecover(false);
         _boss.visible = true;
+        // BGM再生開始
+//        switch((_level-1)%3) {
+//            case 0: FlxG.sound.playMusic("001");
+//            case 1: FlxG.sound.playMusic("002");
+//            case 2: FlxG.sound.playMusic("003");
+//        }
     }
 
     private function _setTextColor(text:FlxText, val:Int):Void {
@@ -375,6 +386,9 @@ class PlayState extends FlxState {
         if(_boss.exists == false) {
             // ボスが死んだので次のレベルに進む
             _nextLevel();
+            var name = "00" + (((_level-1)%6)+1);
+            FlxG.sound.playMusic(name);
+            FlxG.sound.play("levelup");
             return;
         }
 
@@ -401,6 +415,7 @@ class PlayState extends FlxState {
             // 死亡処理
             // 破壊エフェクト再生
             _emitterPlayer.explode(_player.x+_player.width/2, _player.y+_player.height/2);
+            FlxG.sound.play("damage");
 
             _lives--;
             if(_lives < 0) {
@@ -459,7 +474,14 @@ class PlayState extends FlxState {
     }
     private function _vsShieldBullet(shield:Shield, bullet:Bullet):Void {
         bullet.vanish();
-        var h:Horming = _hormings.recycle();
-        h.init(bullet.x, bullet.y, bullet.velocity);
+        var h:Horming = _hormings.getFirstDead();
+        if(h != null) {
+            h.init(bullet.x, bullet.y, bullet.velocity);
+            h.revive();
+            if(s_sndHorming != null) {
+                s_sndHorming.stop();
+            }
+            s_sndHorming = FlxG.sound.play("horming");
+        }
     }
 }

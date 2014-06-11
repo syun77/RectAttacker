@@ -1,9 +1,9 @@
 package ;
+import flixel.system.FlxSound;
 import flixel.util.FlxRandom;
 import flixel.FlxG;
 import flixel.util.FlxAngle;
 import flixel.group.FlxTypedGroup;
-import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
 private enum State {
@@ -23,6 +23,7 @@ class Enemy extends FlxSprite {
     static public var csv:CsvLoader;
     static public var level:Int = 0;
     static public var s_emitter:EmitterEnemy;
+    static public var s_sound:FlxSound = null;
 
     private var _id:Int = 0;
     private var _state:State;
@@ -425,6 +426,11 @@ class Enemy extends FlxSprite {
      **/
     private function vanish(bAttack:Bool=true):Void {
         s_emitter.explode(x+width/2, y+height/2);
+
+        if(s_sound != null) {
+            s_sound.stop();
+        }
+        s_sound = FlxG.sound.play("destroy");
         kill();
     }
 

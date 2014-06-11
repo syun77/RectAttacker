@@ -31,6 +31,38 @@
 	<classpath name="source" />
 	<assets path="assets" />
 	
+	<assets path="assets/sounds" if="flash" exclude="ogg">
+		<sound path="001.mp3" id="001" />
+	</assets>
+	<assets path="assets/music" if="flash" exclude="ogg">
+		<sound path="001.mp3" id="002" />
+		<sound path="002.mp3" id="003" />
+		<sound path="003.mp3" id="004" />
+		<sound path="004.mp3" id="005" />
+		<sound path="005.mp3" id="001" />
+		<sound path="006.mp3" id="006" />
+	</assets>
+	<assets path="assets/sounds" if="flash" exclude="ogg">
+		<sound path="damage.mp3" id="damage" />
+		<sound path="destroy.mp3" id="destroy" />
+		<sound path="levelup.mp3" id="levelup" />
+		<sound path="horming.mp3" id="horming" />
+	</assets>
+
+	<assets path="assets/music" unless="flash">
+		<sound path="001.ogg" id="002" />
+		<sound path="002.ogg" id="003" />
+		<sound path="003.ogg" id="004" />
+		<sound path="004.ogg" id="005" />
+		<sound path="005.ogg" id="001" />
+		<sound path="006.ogg" id="006" />
+	</assets>
+	<assets path="assets/sounds" unless="flash">
+		<sound path="damage.ogg" id="damage" />
+		<sound path="destroy.ogg" id="destroy" />
+		<sound path="levelup.ogg" id="levelup" />
+		<sound path="horming.ogg" id="horming" />
+	</assets>
 	<!--------------------------------LIBRARIES------------------------------------->
 
 	<haxelib name="flixel"/>
