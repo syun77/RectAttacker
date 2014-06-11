@@ -22,6 +22,7 @@ class Enemy extends FlxSprite {
     static public var s_bullets:FlxTypedGroup<Bullet>;
     static public var csv:CsvLoader;
     static public var level:Int = 0;
+    static public var s_emitter:EmitterEnemy;
 
     private var _id:Int = 0;
     private var _state:State;
@@ -377,7 +378,7 @@ class Enemy extends FlxSprite {
      **/
     public function new() {
         super(-100, -100);
-        makeGraphic(8, 8, FlxColor.GREEN);
+        makeGraphic(8, 8, 0xff00FF00);
         immovable = true; // 反動で動かないようにする
 
         // 非表示にする
@@ -394,7 +395,7 @@ class Enemy extends FlxSprite {
         _hp = csv.getInt(id, "hp");
         _hpmax = _hp;
         var size = csv.getInt(id, "size");
-        makeGraphic(size, size, FlxColor.GREEN);
+        makeGraphic(size, size, 0xff00FF00);
         // 出現位置調整
         x -= size/2;
         y -= size/2;
@@ -423,6 +424,7 @@ class Enemy extends FlxSprite {
      * 消滅する
      **/
     private function vanish(bAttack:Bool=true):Void {
+        s_emitter.explode(x+width/2, y+height/2);
         kill();
     }
 

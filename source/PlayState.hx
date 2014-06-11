@@ -69,6 +69,10 @@ class PlayState extends FlxState {
     private var _textMessage:FlxText;
     private var _textPressKey:FlxText;
 
+    // エミッタ
+    private var _emitterEnemy:EmitterEnemy;
+    private var _emitterBoss:EmitterBoss;
+
     // デバッグ用
     private var _nShot:Int = 0;
     private var _nEnemy:Int = 0;
@@ -181,6 +185,14 @@ class PlayState extends FlxState {
         add(_textLife);
         add(_textMessage);
         add(_textPressKey);
+
+        // エミッタ
+        _emitterEnemy = new EmitterEnemy();
+        _emitterBoss = new EmitterBoss();
+        add(_emitterEnemy);
+        add(_emitterBoss);
+        Enemy.s_emitter = _emitterEnemy;
+        Boss.s_emitter = _emitterBoss;
 
         // 各種変数初期化
         _timer = 0;

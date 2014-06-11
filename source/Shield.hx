@@ -12,7 +12,7 @@ class Shield extends FlxSprite {
 
     public function new() {
         super(-100, -100);
-        makeGraphic(10, 4, FlxColor.GOLDEN);
+        makeGraphic(10*3, 4, FlxColor.GOLDEN);
 
         // 消しておく
         kill();

@@ -12,6 +12,7 @@ import flixel.group.FlxTypedGroup;
  */
 class Boss extends FlxSprite {
     static public var s_enemys:FlxTypedGroup<Enemy>;
+    static public var s_emitter:EmitterBoss;
 
     private var _hpmax:Int = 0;
     private var _hp:Int = 0;
@@ -23,7 +24,7 @@ class Boss extends FlxSprite {
 
     public function new() {
         super(-100, -100);
-        makeGraphic(24, 24, FlxColor.LIME);
+        makeGraphic(24, 24, FlxColor.FOREST_GREEN);
         immovable = true; // 反動で動かないようにする
 
         _text = new FlxText(-100, -100, 64);
@@ -65,6 +66,7 @@ class Boss extends FlxSprite {
     public function vanish():Void {
         kill();
         _text.kill();
+        s_emitter.explode(x+width/2, y+height/2);
     }
 
     /**

@@ -1,5 +1,6 @@
 package ;
 
+import flixel.util.FlxAngle;
 import flixel.util.FlxRandom;
 import flixel.text.FlxText;
 import flash.display.BlendMode;
@@ -45,7 +46,7 @@ class Player extends FlxSprite {
     // シールドゲージの最大値
     static inline private var POWER_SHIELD_MAX = 60 * 2 * POWER_SHIELD_DEC;
     // シールドゲージの1フレームあたりの減少量
-    static inline private var POWER_SHIELD_DEC = 8;
+    static inline private var POWER_SHIELD_DEC = 4;
     // シールドゲージの1フレームあたりの回復量
     static inline private var POWER_SHIELD_INC = 1;
     // 無敵タイマー
@@ -268,6 +269,20 @@ class Player extends FlxSprite {
 
     }
 
+    private function _doShotOne(ofsY:Float, dir:Float, speed:Float):Void {
+        var shot:Shot = _shots.getFirstDead();
+        if(shot == null) {
+            return;
+        }
+
+        shot.x = x + width/2 - shot.width/2;
+        shot.y = y + height/2 - shot.height/2;
+        shot.y += ofsY;
+        shot.velocity.x = speed * Math.cos(dir*FlxAngle.TO_RAD);
+        shot.velocity.y = speed * -Math.sin(dir*FlxAngle.TO_RAD);
+        shot.revive();
+    }
+
     /**
      * ショットを撃つ
      **/
@@ -275,26 +290,29 @@ class Player extends FlxSprite {
         _tShot--;
         if(_canShot()) {
             // 弾が撃てる
-            var shot: Shot = _shots.getFirstDead();
-            if(shot != null) {
-                shot.revive();
-                shot.x = x + width/2 - shot.width/2;
-                shot.y = y + height/2 - shot.height/2;
-                shot.y += FlxRandom.floatRanged(0, 8); // 発射位置をランダムでずらす
-                shot.velocity.y = -SPEED_SHOT;
-                shot.velocity.x = 0;
-                // スピード補正
-                var func = function(v) {
-                    switch(v) {
-                        case a if(a < 10): return 0.2;
-                        case a if(a < 40): return 0.4;
-                        case a if(a < 70): return 0.6;
-                        case a if(a < 90): return 0.8;
-                        default: return 1;
-                    }
+            // スピード補正
+            var funcSpeed = function(v) {
+                switch(v) {
+                    case a if(a < 10): return 0.5;
+                    case a if(a < 40): return 0.6;
+                    case a if(a < 70): return 0.7;
+                    case a if(a < 90): return 0.8;
+                    default: return 1;
                 }
-                shot.velocity.y *= func(getPowerShotRatio());
             }
+            var ofsY:Float = FlxRandom.floatRanged(0, 8); // 発射位置をランダムでずらす
+            var dir = 90;
+            var speed:Float = funcSpeed(getPowerShotRatio()) * SPEED_SHOT;
+            _doShotOne(ofsY, dir, speed);
+            if(getPowerShotRatio() > 50) {
+                _doShotOne(ofsY, dir+5, speed);
+                _doShotOne(ofsY, dir-5, speed);
+            }
+            if(getPowerShotRatio() > 80) {
+                _doShotOne(ofsY, dir+10, speed);
+                _doShotOne(ofsY, dir-10, speed);
+            }
+
             // ショットタイマーを増やす
             var func = function(v) {
                 switch(v) {
@@ -357,7 +375,10 @@ class Player extends FlxSprite {
 
         if(_isPressdShot() == false) {
             // ショットゲージ回復
-            addPowerShot(POWER_SHOT_INC);
+            var diff = POWER_SHOT_MAX - _powerShot;
+            var val = diff * 0.01;
+            val = if(val < POWER_SHOT_INC) POWER_SHOT_INC else val;
+            addPowerShot(cast val);
         }
         if(_isPressShield() == false) {
             // シールドゲージ回復
